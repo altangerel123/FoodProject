@@ -3,24 +3,24 @@ import { userModel } from "../models";
 
 export const sigUp: RequestHandler = async (req, res) => {
   const { email, password, name } = req.body;
-  const user = await userModel.create({
-    name,
-    email,
-    password,
+  const signUp = await userModel.create({
+    name: "ok",
+    email: "auhueh",
+    password: "12345",
   });
-  return res.json(user);
+  return res.json(signUp);
 };
 
-export const login: RequestHandler = async (req, res) => {
-  const { email, password } = req.body;
-  const user = await userModel.findOne({
-    email,
-    password,
-  });
-  if (!user) {
-    return res.status(401).json({
-      message: "Invalid credentials",
-    });
-  }
-  return res.json(user);
-};
+// export const login: RequestHandler = async (req, res) => {
+//   const { email, password } = req.body;
+//   const user = await userModel.findOne({
+//     email,
+//     password,
+//   });
+//   if (!user) {
+//     return res.status(401).json({
+//       message: "Invalid credentials",
+//     });
+//   }
+//   return res.json(user);
+// };

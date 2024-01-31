@@ -2,7 +2,7 @@ import { connect } from "./database";
 import app from "./app";
 const port = 3001;
 
-connect;
+connect();
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
