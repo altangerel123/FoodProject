@@ -94,7 +94,7 @@ export const Footer = () => {
           Үйлчилгээний нөхцөл
         </Link>
         <Link
-          href={"/FoodInfo2"}
+          href={"/Location"}
           style={{
             color: "white",
             marginLeft: "24px",
