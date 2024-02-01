@@ -81,7 +81,7 @@ export const Header = () => {
           ХООЛНЫ ЦЭС
         </Link>
         <Link
-          href={"/"}
+          href={"/Location"}
           style={{
             marginLeft: "24px",
             fontSize: "14px",
@@ -89,7 +89,7 @@ export const Header = () => {
             lineHeight: "16px",
             padding: "16px",
             textDecoration: "none",
-            color: "black",
+            color: pathname.includes("Location") ? "#18BA51" : "black",
           }}
         >
           ХҮРГЭЛТИЙН БҮС

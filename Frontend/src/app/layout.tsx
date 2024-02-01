@@ -6,6 +6,7 @@ import { Footer } from "@/component/Footer";
 import { CssBaseline, Stack, ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { Theme } from "@/theme";
+import { AuthProvider } from "@/component/AupthProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +21,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           <ThemeProvider theme={Theme}>
             <Stack>
               <Header />
-              {children}
+              <AuthProvider>{children}</AuthProvider>
               <Footer />
             </Stack>
           </ThemeProvider>

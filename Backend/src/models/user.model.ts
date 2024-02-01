@@ -14,5 +14,4 @@ const userShema = new Schema({
     required: true,
   },
 });
-
 export const userModel = model("user", userShema);
