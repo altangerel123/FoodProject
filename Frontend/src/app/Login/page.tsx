@@ -24,7 +24,6 @@ export default function Login() {
       console.log(values);
     },
   });
-
   return (
     <Stack alignItems="center">
       <Stack width="448px" gap="48px" alignItems="center" sx={{ p: "32px" }}>

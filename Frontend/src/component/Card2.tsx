@@ -4,32 +4,31 @@ import React, { useState } from "react";
 import Card3 from "./Card3";
 export default function Card2() {
   const [open, setOpen] = useState(false);
-
-  const CardMap = [
+  const Card2map = [
     {
-      image: "Food3.png",
+      image: "Foodpng.png",
       title: "Өглөөний хоол",
       price: "14800",
     },
     {
-      image: "Food3.png",
+      image: "Foodpng.png",
       title: "Зайрмаг",
       price: "4000",
     },
     {
-      image: "Food3.png",
+      image: "Foodpng.png",
       title: "Өглөөний хоол",
       price: "4000",
     },
     {
-      image: "Food3.png",
+      image: "Foodpng.png",
       title: "Breakfast ",
       price: "4000",
     },
   ];
   return (
     <Stack direction="row" gap="24px">
-      {CardMap.map((index) => {
+      {Card2map.map((index) => {
         return (
           <Stack>
             <img
@@ -55,12 +54,7 @@ export default function Card2() {
           </Stack>
         );
       })}
-      <Modal
-        open={open}
-        // onClose={() => {
-        //   setOpen(false);
-        // }}
-      >
+      <Modal open={open}>
         <Box
           sx={{
             position: "absolute" as "absolute",

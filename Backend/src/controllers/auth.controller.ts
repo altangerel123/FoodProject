@@ -1,26 +1,29 @@
 import { RequestHandler } from "express";
 import { userModel } from "../models";
 
-export const sigUp: RequestHandler = async (req, res) => {
-  const { email, password, name } = req.body;
-  const signUp = await userModel.create({
-    name: "ok",
-    email: "auhueh",
-    password: "12345",
+export const signupPost: RequestHandler = async (req, res) => {
+  const { name, email, password } = req.body;
+  const user = await userModel.findOne({
+    email: email,
   });
-  return res.json(signUp);
-};
 
-// export const login: RequestHandler = async (req, res) => {
-//   const { email, password } = req.body;
-//   const user = await userModel.findOne({
-//     email,
-//     password,
-//   });
-//   if (!user) {
-//     return res.status(401).json({
-//       message: "Invalid credentials",
-//     });
-//   }
-//   return res.json(user);
+  if (user) {
+    return res.status(409).json({
+      message: "User already exists",
+    });
+  }
+  await userModel.create({
+    name,
+    email,
+    password,
+  });
+
+  res.json({
+    message: "User created",
+  });
+};
+// export const signupGet: RequestHandler = async (req, res) => {
+//   const users = await userModel.find({});
+
+//   res.json(users);
 // };
