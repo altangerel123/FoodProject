@@ -1,7 +1,8 @@
 import { RequestHandler } from "express";
 import { userModel } from "../models";
+const jwt = require("jsonwebtoken");
 
-export const signupPost: RequestHandler = async (req, res) => {
+export const signup: RequestHandler = async (req, res) => {
   const { name, email, password } = req.body;
   const user = await userModel.findOne({
     email: email,
@@ -22,8 +23,20 @@ export const signupPost: RequestHandler = async (req, res) => {
     message: "User created",
   });
 };
-// export const signupGet: RequestHandler = async (req, res) => {
-//   const users = await userModel.find({});
-
-//   res.json(users);
-// };
+export const login: RequestHandler = async (req, res) => {
+  const { name, email, password } = req.body;
+  const user = await userModel.findOne({
+    email: email,
+    password: password,
+  });
+  if (!user) {
+    return res.status(409).json({
+      message: "e-mail buruu bn",
+    });
+  }
+  const token = jwt.sign({ email }, "login");
+  res.json({
+    message: "User signed in",
+    token,
+  });
+};

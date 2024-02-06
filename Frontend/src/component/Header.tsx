@@ -14,6 +14,7 @@ export const Header = () => {
   const pathname = usePathname();
   const [drawer, setDrawer] = useState(false);
   const [open, setOpen] = useState(false);
+  // const [];
   const [state, setState] = React.useState({
     right: false,
   });
@@ -149,22 +150,43 @@ export const Header = () => {
               color: open ? "#18BA51" : "black",
             }}
           />
-          <Typography
-            style={{
-              color: open ? "#18BA51" : "black",
-              display: "flex",
-              alignItems: "center",
-              fontSize: "18px",
-              fontWeight: "700",
-              lineHeight: "18px",
-              textDecoration: "none",
-            }}
-            onClick={() => {
-              setOpen(true);
-            }}
-          >
-            Нэвтрэх
-          </Typography>
+          {open && (
+            <Typography
+              style={{
+                color: open ? "#18BA51" : "black",
+                display: "flex",
+                alignItems: "center",
+                fontSize: "18px",
+                fontWeight: "700",
+                lineHeight: "18px",
+                textDecoration: "none",
+              }}
+              onClick={() => {
+                setOpen(true);
+              }}
+            >
+              Нэвтрэх
+            </Typography>
+          )}
+          {!open && (
+            <Typography
+              style={{
+                color: open ? "#18BA51" : "black",
+                display: "flex",
+                alignItems: "center",
+                fontSize: "18px",
+                fontWeight: "700",
+                lineHeight: "18px",
+                textDecoration: "none",
+              }}
+              onClick={() => {
+                setOpen(true);
+              }}
+            >
+              htjtj
+            </Typography>
+          )}
+
           <Modal
             open={open}
             onClose={() => {

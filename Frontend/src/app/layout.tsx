@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import "react-toastify/dist/ReactToastify.css";
+
+import { ToastContainer } from "react-toastify";
 
 import { PropsWithChildren } from "react";
 import { Header } from "@/component/Header";
@@ -24,7 +27,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
               <Footer />
             </Stack>
           </ThemeProvider>
-          <CssBaseline />
+          <CssBaseline /> <ToastContainer />
         </AppRouterCacheProvider>
       </body>
     </html>

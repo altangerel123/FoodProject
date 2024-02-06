@@ -7,13 +7,15 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useContext } from "react";
+import { AuthContext } from "@/component/AupthProvider";
 const validationSchema = yup.object({
   email: yup.string().email().required(),
   password: yup.string().required(),
 });
 export default function Login() {
   const router = useRouter();
-
+  const { login } = useContext(AuthContext);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -21,7 +23,10 @@ export default function Login() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
+      login({
+        email: values.email,
+        password: values.password,
+      });
     },
   });
   return (
