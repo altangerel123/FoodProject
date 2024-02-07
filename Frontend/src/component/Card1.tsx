@@ -34,9 +34,9 @@ export default function Card1() {
   ];
   return (
     <Stack direction="row" gap="24px">
-      {CardMap.map((index) => {
+      {CardMap.map((index, card) => {
         return (
-          <Stack>
+          <Stack key={card}>
             <Stack position="relative">
               <img
                 style={{

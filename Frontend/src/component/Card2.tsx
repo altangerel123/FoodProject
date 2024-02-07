@@ -28,9 +28,9 @@ export default function Card2() {
   ];
   return (
     <Stack direction="row" gap="24px">
-      {Card2map.map((index) => {
+      {Card2map.map((index, gg) => {
         return (
-          <Stack>
+          <Stack key={gg}>
             <img
               style={{
                 width: "282px",

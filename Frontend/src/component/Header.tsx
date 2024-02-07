@@ -6,15 +6,16 @@ import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { CustomInput } from ".";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import DrawerFunction from "./DrawerFunction";
 import NewLogin from "./NewLogin";
+import { AuthContext } from "./AupthProvider";
 type Anchor = "right";
 export const Header = () => {
   const pathname = usePathname();
   const [drawer, setDrawer] = useState(false);
   const [open, setOpen] = useState(false);
-  // const [];
+  const { isLogin, isUser } = useContext(AuthContext);
   const [state, setState] = React.useState({
     right: false,
   });
@@ -150,7 +151,7 @@ export const Header = () => {
               color: open ? "#18BA51" : "black",
             }}
           />
-          {open && (
+          {!isUser && (
             <Typography
               style={{
                 color: open ? "#18BA51" : "black",
@@ -168,7 +169,7 @@ export const Header = () => {
               Нэвтрэх
             </Typography>
           )}
-          {!open && (
+          {isUser && (
             <Typography
               style={{
                 color: open ? "#18BA51" : "black",
@@ -179,11 +180,8 @@ export const Header = () => {
                 lineHeight: "18px",
                 textDecoration: "none",
               }}
-              onClick={() => {
-                setOpen(true);
-              }}
             >
-              htjtj
+              Хэрэглэгч
             </Typography>
           )}
 
