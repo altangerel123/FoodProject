@@ -15,11 +15,13 @@ const Page = () => {
       try {
         const formData = new FormData();
         formData.append("file", selectedFile);
-        const response = await fetch("", {
-          method: "POST",
-          body: formData,
-        });
-
+        const response = await fetch(
+          "POST https://api.cloudinary.com/v1_1/dluvjoh6c/upload?upload_preset=s4gvwatw",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
         const data = await response.json();
         console.log(data);
         setImageUrl(data.secure_url);
