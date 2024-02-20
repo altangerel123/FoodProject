@@ -119,9 +119,10 @@ export default function Home() {
           justifyContent="center"
           paddingY="150px"
         >
-          {Cards.map((index) => {
+          {Cards.map((index, item) => {
             return (
               <Stack
+                key={item}
                 padding="16px"
                 border={1}
                 borderRadius="16px"

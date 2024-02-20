@@ -15,7 +15,7 @@ export const Header = () => {
   const pathname = usePathname();
   const [drawer, setDrawer] = useState(false);
   const [open, setOpen] = useState(false);
-  const { isLogin, isUser } = useContext(AuthContext);
+  const { isUser } = useContext(AuthContext);
   const [state, setState] = React.useState({
     right: false,
   });
@@ -30,7 +30,6 @@ export const Header = () => {
       ) {
         return;
       }
-
       setState({ ...state, [anchor]: open });
     };
 
@@ -125,7 +124,6 @@ export const Header = () => {
               display="flex"
               alignItems="center"
               fontWeight="700"
-              onClick={() => {}}
             >
               Сагс
             </Typography>
@@ -170,7 +168,8 @@ export const Header = () => {
             </Typography>
           )}
           {isUser && (
-            <Typography
+            <Link
+              href={"/Frofile"}
               style={{
                 color: open ? "#18BA51" : "black",
                 display: "flex",
@@ -182,9 +181,8 @@ export const Header = () => {
               }}
             >
               Хэрэглэгч
-            </Typography>
+            </Link>
           )}
-
           <Modal
             open={open}
             onClose={() => {

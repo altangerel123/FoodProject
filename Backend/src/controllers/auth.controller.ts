@@ -18,9 +18,10 @@ export const signup: RequestHandler = async (req, res) => {
     email,
     password,
   });
-
+  const token = jwt.sign({ email }, "Signup");
   res.json({
     message: "User created",
+    token,
   });
 };
 export const login: RequestHandler = async (req, res) => {
@@ -34,7 +35,7 @@ export const login: RequestHandler = async (req, res) => {
       message: "Aldaa garlaa",
     });
   }
-  const token = jwt.sign({ email }, "login");
+  const token = jwt.sign({ email }, "Signup");
   res.json({
     message: "User signed in",
     token,

@@ -3,13 +3,32 @@
 import { CustomInput } from "@/component";
 import { Button, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useContext } from "react";
+import * as yup from "yup";
 import Link from "next/link";
+import { AuthContext } from "./AupthProvider";
+import { useFormik } from "formik";
+const validationSchema = yup.object({
+  email: yup.string().email().required(),
+  password: yup.string().required(),
+});
 
 export default function NewLogin() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { login } = useContext(AuthContext);
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      login({
+        email: values.email,
+        password: values.password,
+      });
+    },
+  });
   return (
     <Stack
       sx={{ bgcolor: "text.secondary" }}
@@ -25,20 +44,22 @@ export default function NewLogin() {
             <CustomInput
               placeholder="Имэйл хаягаа оруулна уу"
               label="Имэйл"
-              value={email}
-              onChange={(event) => {
-                setEmail(event.target.value);
-              }}
-              type="email"
+              name="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
             />
             <CustomInput
               placeholder="Нууц үг"
               label="Нууц үг"
-              value={password}
-              onChange={(event) => {
-                setPassword(event.target.value);
-              }}
-              type="password"
+              name="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
             />
             <Link
               href={"/ForgetPass"}
@@ -55,7 +76,9 @@ export default function NewLogin() {
                 variant="contained"
                 fullWidth
                 sx={{ p: "16px 8px", width: "384px" }}
-                disabled={!email || !password}
+                onClick={() => {
+                  formik.handleSubmit();
+                }}
               >
                 Нэвтрэх
               </Button>

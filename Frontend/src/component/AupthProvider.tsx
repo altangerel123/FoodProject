@@ -1,7 +1,7 @@
 "use client";
 import { backend } from "@/common";
 import { toast } from "react-toastify";
-import { PropsWithChildren, createContext, useState } from "react";
+import { PropsWithChildren, createContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 type UsersType = {
   name: String;
@@ -14,7 +14,6 @@ type loginType = {
 };
 type AuthContextType = {
   isLogged: boolean;
-  isLogin: boolean;
   isUser: boolean;
   signup: (type: UsersType) => void;
   login: (type: loginType) => void;
@@ -24,7 +23,7 @@ export const AuthContext = createContext<AuthContextType>(
 );
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLogged, setIsLogged] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [isUser, setIsUser] = useState(false);
   const router = useRouter();
 
@@ -33,6 +32,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       const { data } = await backend.post("/signup", type);
       const { token } = data;
       localStorage.setItem("token", token);
+      setIsUser(true);
       router.push("/Home");
     } catch (error) {
       toast("Aldaa garlaa", {
@@ -68,8 +68,15 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       });
     }
   };
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     isUser;
+  //   }
+  // });
   return (
-    <AuthContext.Provider value={{ isLogged, signup, login, isLogin, isUser }}>
+    <AuthContext.Provider value={{ isLogged, signup, login, isUser }}>
       {children}
     </AuthContext.Provider>
   );
