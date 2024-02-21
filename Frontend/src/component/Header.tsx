@@ -9,13 +9,12 @@ import { CustomInput } from ".";
 import React, { useContext, useState } from "react";
 import DrawerFunction from "./DrawerFunction";
 import NewLogin from "./NewLogin";
-import { AuthContext } from "./AupthProvider";
+import { AuthContext, AuthProvider } from "./AupthProvider";
 type Anchor = "right";
 export const Header = () => {
   const pathname = usePathname();
   const [drawer, setDrawer] = useState(false);
-  const [open, setOpen] = useState(false);
-  const { isUser } = useContext(AuthContext);
+  const { isLoggedIn, open, setOpen } = useContext(AuthContext);
   const [state, setState] = React.useState({
     right: false,
   });
@@ -149,7 +148,7 @@ export const Header = () => {
               color: open ? "#18BA51" : "black",
             }}
           />
-          {!isUser && (
+          {!isLoggedIn && (
             <Typography
               style={{
                 color: open ? "#18BA51" : "black",
@@ -167,7 +166,7 @@ export const Header = () => {
               Нэвтрэх
             </Typography>
           )}
-          {isUser && (
+          {isLoggedIn && (
             <Link
               href={"/Frofile"}
               style={{

@@ -9,13 +9,13 @@ import Link from "next/link";
 import { AuthContext } from "./AupthProvider";
 import { useFormik } from "formik";
 const validationSchema = yup.object({
-  email: yup.string().email().required(),
+  email: yup.string().email("И-мэйл буруу байна").required("Бөглөнө үү"),
   password: yup.string().required(),
 });
 
 export default function NewLogin() {
   const router = useRouter();
-  const { login } = useContext(AuthContext);
+  const { login, open, setOpen } = useContext(AuthContext);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -53,6 +53,7 @@ export default function NewLogin() {
             />
             <CustomInput
               placeholder="Нууц үг"
+              type="password"
               label="Нууц үг"
               name="password"
               value={formik.values.password}
@@ -74,10 +75,16 @@ export default function NewLogin() {
             <Stack gap="32px">
               <Button
                 variant="contained"
+                disabled={
+                  !formik.values.email ||
+                  !formik.values.password ||
+                  Boolean(formik.errors.email)
+                }
                 fullWidth
                 sx={{ p: "16px 8px", width: "384px" }}
                 onClick={() => {
                   formik.handleSubmit();
+                  setOpen(false);
                 }}
               >
                 Нэвтрэх

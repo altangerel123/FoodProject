@@ -9,7 +9,7 @@ import StarIcon from "@mui/icons-material/Star";
 import Card2 from "@/component/Card2";
 import Card1 from "@/component/Card1";
 
-export default function Home() {
+export default function Homepage() {
   const Cards = [
     {
       icons: (

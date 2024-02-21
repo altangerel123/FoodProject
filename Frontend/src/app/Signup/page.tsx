@@ -85,16 +85,17 @@ export default function Signup() {
           <Stack gap="32px">
             <Stack direction="row" justifyContent="center">
               <CloudIcon
-                sx={{ color: iconColor ? "black" : "green" }}
+                sx={{ color: !iconColor ? "black" : "green" }}
                 onClick={() => {
                   setIconColor(!iconColor);
                 }}
               />
-              Үйлчилгээний нөхцөо зөвшөөрөх
+              Үйлчилгээний нөхцөл зөвшөөрөх
             </Stack>
             <Button
               fullWidth
               variant="contained"
+              disabled={!iconColor}
               sx={{ p: "16px 8px", width: "384px" }}
               onClick={() => {
                 formik.handleSubmit();

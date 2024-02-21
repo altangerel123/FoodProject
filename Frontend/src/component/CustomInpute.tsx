@@ -26,11 +26,11 @@ export const CustomInput = (props: TextFieldProps) => {
       </Typography>
       <TextField
         {...rest}
-        type={type === "email" && showPassword ? "text" : type}
-        sx={{
-          bgcolor: "#ECEDF0",
-        }}
+        type={type === "password" && showPassword ? "text" : "password"}
         InputProps={{
+          sx: {
+            bgcolor: "#ECEDF0",
+          },
           endAdornment: type === "password" && (
             <InputAdornment position="end">
               <IconButton onClick={handleShowPassword}>

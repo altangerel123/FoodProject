@@ -22,9 +22,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <AppRouterCacheProvider>
           <ThemeProvider theme={Theme}>
             <Stack>
-              <Header />
-              <AuthProvider>{children}</AuthProvider>
-              <Footer />
+              <AuthProvider>
+                <Header />
+                {children}
+                <Footer />
+              </AuthProvider>
             </Stack>
           </ThemeProvider>
           <CssBaseline /> <ToastContainer />
