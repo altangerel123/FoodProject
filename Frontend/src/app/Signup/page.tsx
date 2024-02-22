@@ -8,9 +8,10 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { AuthContext } from "@/component/AupthProvider";
 const validationSchema = yup.object({
-  name: yup.string().required(),
-  email: yup.string().email().required(),
-  password: yup.string().required(),
+  name: yup.string().required("Ner oruulna uu"),
+  email: yup.string().email().required("Email oruulna uu"),
+  password: yup.string().required("Password oruulne uu"),
+  address: yup.string().required("Address oruulna uus"),
 });
 export default function Signup() {
   const [name1, setName1] = useState("");
@@ -21,6 +22,7 @@ export default function Signup() {
       name: "",
       email: "",
       password: "",
+      address: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -28,6 +30,7 @@ export default function Signup() {
         name: values.name,
         email: values.email,
         password: values.password,
+        address: values.address,
       });
     },
   });
@@ -61,16 +64,18 @@ export default function Signup() {
           <CustomInput
             placeholder="Та хаягаа оруулна уу"
             label="Хаяг"
-            value={name1}
-            onChange={(event) => {
-              setName1(event.target.value);
-            }}
-            type="text"
+            name="address"
+            value={formik.values.address}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.address && Boolean(formik.errors.address)}
+            helperText={formik.touched.address && formik.errors.address}
           />
           <CustomInput
             placeholder="Нууц үгээ оруулна уу"
             label="Нууц үг"
             name="password"
+            type="password"
             value={formik.values.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -78,6 +83,7 @@ export default function Signup() {
             helperText={formik.touched.password && formik.errors.password}
           />
           <CustomInput
+            type="password"
             placeholder="Нууц үгээ оруулна уу"
             label="Нууц үг давтах"
             name="password1"

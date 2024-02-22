@@ -75,11 +75,10 @@ export default function Homepage() {
         bgcolor="#18BA51"
         width="full"
         color="white"
-        sx={{ backgroundImage: "url(/Food.png)" }}
-        justifyContent="center"
+        sx={{ backgroundImage: "url(/Food.png)", px: "240px" }}
         direction="row"
         alignItems="center"
-        gap="200px"
+        justifyContent="space-between"
       >
         <Stack maxWidth="384px">
           <Typography
@@ -88,13 +87,13 @@ export default function Homepage() {
             paddingBottom="23px"
             borderBottom={1}
           >
-            Pinecone Food delivery
+            Pinecone Food deliverys
           </Typography>
           <Typography fontSize="22px" fontWeight="700" paddingTop="23px">
             Horem ipsum dolor sit amet, consectetur adipiscing elit.
           </Typography>
         </Stack>
-        <Stack position="relative">
+        <Stack position="relative" marginRight="127px">
           <img
             src="image 13.png"
             style={{ width: "443px", height: "438" }}
@@ -116,7 +115,8 @@ export default function Homepage() {
         <Stack
           direction="row"
           gap="47px"
-          justifyContent="center"
+          px="240px"
+          justifyContent="space-between"
           paddingY="150px"
         >
           {Cards.map((index, item) => {
@@ -139,7 +139,7 @@ export default function Homepage() {
             );
           })}
         </Stack>
-        <Stack gap="80px" justifyContent="center" alignItems="center">
+        <Stack px="240px" gap="80px" alignItems="center">
           <Stack gap="24px">
             <Stack direction="row" justifyContent="space-between">
               <Stack direction="row" alignItems="center">

@@ -27,7 +27,7 @@ export default function Card2() {
     },
   ];
   return (
-    <Stack direction="row" gap="24px">
+    <Stack direction="row" px="240px">
       {Card2map.map((index, gg) => {
         return (
           <Stack key={gg}>

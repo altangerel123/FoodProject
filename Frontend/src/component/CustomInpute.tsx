@@ -26,7 +26,7 @@ export const CustomInput = (props: TextFieldProps) => {
       </Typography>
       <TextField
         {...rest}
-        type={type === "password" && showPassword ? "text" : "password"}
+        type={type === "password" && showPassword ? "text" : type}
         InputProps={{
           sx: {
             bgcolor: "#ECEDF0",

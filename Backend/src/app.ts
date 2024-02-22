@@ -3,7 +3,6 @@ import cors from "cors";
 import { json } from "body-parser";
 import authRouter from "./routers/auth.router";
 import { connect } from "./database";
-
 const app = express();
 app.use(cors());
 app.use(json());

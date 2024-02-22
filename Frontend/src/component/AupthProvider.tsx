@@ -14,6 +14,7 @@ type UsersType = {
   name: String;
   email: String;
   password: String;
+  address: String;
 };
 type loginType = {
   email: String;
@@ -27,7 +28,12 @@ type AuthContextType = {
   open: boolean;
   signup: (type: UsersType) => void;
   login: (type: loginType) => void;
+  Profile: () => Promise<void>;
   signOut: () => Promise<void>;
+  setProfile: any;
+  profile: any;
+  logOut: boolean;
+  setLogOut: Dispatch<SetStateAction<boolean>>;
 };
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
@@ -38,6 +44,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const [profile, setProfile] = useState();
+  const [logOut, setLogOut] = useState(false);
 
   const signup = async (type: UsersType) => {
     try {
@@ -80,10 +88,29 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       });
     }
   };
+  const Profile = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const { data } = await backend.get("/profile", {
+        headers: {
+          Authorization: token,
+        },
+      });
+      setProfile(data[0]);
+    } catch (error) {
+      toast;
+    }
+  };
+
+  useEffect(() => {
+    setIsLoggedIn(true);
+    Profile();
+  }, []);
 
   const signOut = async () => {
     await localStorage.removeItem("token");
-    setIsLoggedIn(false);
+    // setIsLoggedIn(false);
+    // setLogOut(true);
     router.push("/");
   };
   useEffect(() => {
@@ -102,6 +129,11 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         signOut,
         open,
         setOpen,
+        Profile,
+        setProfile,
+        profile,
+        logOut,
+        setLogOut,
       }}
     >
       {children}

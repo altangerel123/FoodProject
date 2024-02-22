@@ -21,7 +21,7 @@ export const Footer = () => {
         width: "full",
         height: "545px",
         backgroundImage: "url(/Food.png)",
-        px: "120px",
+        px: "240px",
         paddingTop: "114px",
       }}
     >

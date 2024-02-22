@@ -46,7 +46,7 @@ export const Header = () => {
     <Stack
       direction="row"
       justifyContent="space-between"
-      px="24px"
+      px="240px"
       py="8px"
       sx={{ bgcolor: "white", height: "75px" }}
     >
