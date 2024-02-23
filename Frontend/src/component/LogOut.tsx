@@ -1,9 +1,10 @@
 import { Box, Button, Modal, Stack, Typography } from "@mui/material";
 import { useContext } from "react";
 import { AuthContext } from "./AupthProvider";
+import { useRouter } from "next/navigation";
 
 export function Logout() {
-  const { logOut, signOut, setLogOut } = useContext(AuthContext);
+  const { signOut, setLogOut } = useContext(AuthContext);
   return (
     <Stack direction="row" justifyContent="center">
       <Stack>
@@ -27,6 +28,9 @@ export function Logout() {
                 borderRadius: "0 0 0 20px",
               },
             }}
+            onClick={() => {
+              setLogOut(false);
+            }}
           >
             Үгүй
           </Button>
@@ -47,7 +51,7 @@ export function Logout() {
               },
             }}
             onClick={() => {
-              setLogOut(logOut);
+              signOut();
             }}
           >
             Тийм

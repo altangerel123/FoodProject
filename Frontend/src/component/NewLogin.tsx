@@ -1,7 +1,7 @@
 "use client";
 
 import { CustomInput } from "@/component";
-import { Box, Button, Modal, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import * as yup from "yup";
@@ -14,7 +14,7 @@ const validationSchema = yup.object({
 });
 export default function NewLogin() {
   const router = useRouter();
-  const { login, setOpen, logOut, setLogOut } = useContext(AuthContext);
+  const { login, setOpen, logOut } = useContext(AuthContext);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -67,6 +67,9 @@ export default function NewLogin() {
                 display: "flex",
                 justifyContent: "end",
                 textDecoration: "none",
+              }}
+              onClick={() => {
+                setOpen(false);
               }}
             >
               Нууц үг сэргээх

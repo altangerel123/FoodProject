@@ -11,25 +11,7 @@ import { AuthContext } from "@/component/AupthProvider";
 import { Logout } from "@/component/LogOut";
 
 export default function Frofile() {
-  const { signOut, profile, logOut, setLogOut } = useContext(AuthContext);
-  const FrofileCard = [
-    {
-      icon1: <PersonOutlineIcon />,
-      title: "Таны нэр",
-      icon2: <ModeEditOutlinedIcon />,
-    },
-    {
-      icon1: <LocalPhoneOutlinedIcon />,
-      title: "Утасны дугаар",
-      icon2: <ModeEditOutlinedIcon />,
-    },
-    {
-      icon1: <ForwardToInboxOutlinedIcon />,
-      title: "Имэйл хаяг",
-      icon2: <ModeEditOutlinedIcon />,
-    },
-  ];
-
+  const { profile, logOut, setLogOut } = useContext(AuthContext);
   // console.log(profile, "HHHHH");
   return (
     <Stack
@@ -49,43 +31,108 @@ export default function Frofile() {
           </Typography>
         </Stack>
         <Stack gap="30px">
-          {FrofileCard.map((index, item) => {
-            return (
-              <Stack
-                key={item}
-                sx={{ p: "10px 20px" }}
-                direction="row"
-                bgcolor="#F6F6F6"
-                borderRadius="4px"
-                justifyContent="space-between"
-              >
-                <Stack direction="row" gap="15px">
-                  <Typography
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    width="48px"
-                    height="48px"
-                    borderRadius="100%"
-                    bgcolor="white"
-                  >
-                    {index.icon1}
-                  </Typography>
-                  <Stack>
-                    <Typography fontSize="12px" fontWeight="400">
-                      {index.title}
-                    </Typography>
-                    <Typography fontSize="16px" fontWeight="400">
-                      {profile?.name}
-                    </Typography>
-                  </Stack>
-                </Stack>
-                <Typography display="flex" color="#18BA51" alignItems="center">
-                  {index.icon2}
+          <Stack
+            sx={{ p: "10px 20px" }}
+            direction="row"
+            bgcolor="#F6F6F6"
+            borderRadius="4px"
+            justifyContent="space-between"
+          >
+            <Stack direction="row" gap="30px">
+              <PersonOutlineIcon
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "100%",
+                  bgcolor: "white",
+                }}
+              />
+              <Stack>
+                <Typography fontSize="12px" fontWeight="400">
+                  Таны нэр
+                </Typography>
+                <Typography fontSize="16px" fontWeight="400">
+                  {profile?.name}
                 </Typography>
               </Stack>
-            );
-          })}
+            </Stack>
+            <ModeEditOutlinedIcon
+              sx={{
+                display: "flex",
+                color: "#18BA51",
+                alignItems: "center",
+              }}
+            />
+          </Stack>
+          <Stack
+            sx={{ p: "10px 20px" }}
+            direction="row"
+            bgcolor="#F6F6F6"
+            borderRadius="4px"
+            justifyContent="space-between"
+          >
+            <Stack direction="row" gap="30px">
+              <LocalPhoneOutlinedIcon
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "100%",
+                  bgcolor: "white",
+                }}
+              />
+              <Stack>
+                <Typography fontSize="12px" fontWeight="400">
+                  Утасны дугаар
+                </Typography>
+                <Typography fontSize="16px" fontWeight="400">
+                  {profile?.address}
+                </Typography>
+              </Stack>
+            </Stack>
+            <ModeEditOutlinedIcon
+              sx={{
+                display: "flex",
+                color: "#18BA51",
+                alignItems: "center",
+              }}
+            />
+          </Stack>
+          <Stack
+            sx={{ p: "10px 20px" }}
+            direction="row"
+            bgcolor="#F6F6F6"
+            borderRadius="4px"
+            justifyContent="space-between"
+          >
+            <Stack direction="row" gap="30px">
+              <ForwardToInboxOutlinedIcon
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "100%",
+                  bgcolor: "white",
+                }}
+              />
+              <Stack>
+                <Typography fontSize="12px" fontWeight="400">
+                  Имэйл хаяг
+                </Typography>
+                <Typography fontSize="16px" fontWeight="400">
+                  {profile?.email}
+                </Typography>
+              </Stack>
+            </Stack>
+            <ModeEditOutlinedIcon
+              sx={{
+                display: "flex",
+                color: "#18BA51",
+                alignItems: "center",
+              }}
+            />
+          </Stack>
           <Stack direction="row" gap="15px" sx={{ p: "10px 20px" }}>
             <ManageHistoryIcon sx={{ width: "48px" }} />
             <Typography>Захиалгын түүх</Typography>
@@ -94,19 +141,16 @@ export default function Frofile() {
             direction="row"
             gap="15px"
             sx={{ p: "10px 20px" }}
-            onClick={signOut}
+            onClick={() => {
+              setLogOut(true);
+            }}
           >
             <LogoutIcon sx={{ width: "48px" }} />
             <Typography>Гарах</Typography>
           </Stack>
         </Stack>
       </Stack>
-      <Modal
-        open={logOut}
-        onClose={() => {
-          setLogOut(false);
-        }}
-      >
+      <Modal open={logOut}>
         <Box
           sx={{
             position: "absolute" as "absolute",

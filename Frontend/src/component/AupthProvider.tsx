@@ -21,7 +21,6 @@ type loginType = {
   password: String;
 };
 type AuthContextType = {
-  isLogged: boolean;
   isUser: boolean;
   isLoggedIn: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
@@ -34,12 +33,12 @@ type AuthContextType = {
   profile: any;
   logOut: boolean;
   setLogOut: Dispatch<SetStateAction<boolean>>;
+  setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
 };
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
 );
 export const AuthProvider = ({ children }: PropsWithChildren) => {
-  const [isLogged, setIsLogged] = useState(false);
   const [isUser, setIsUser] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [open, setOpen] = useState(false);
@@ -106,22 +105,20 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     setIsLoggedIn(true);
     Profile();
   }, []);
-
   const signOut = async () => {
     await localStorage.removeItem("token");
-    // setIsLoggedIn(false);
-    // setLogOut(true);
+    setIsLoggedIn(false);
+    setLogOut(false);
     router.push("/");
   };
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) setIsLoggedIn(true);
-  }, [isLoggedIn]);
-  // console.log(isLoggedIn);
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
-        isLogged,
         signup,
         login,
         isUser,
@@ -134,6 +131,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         profile,
         logOut,
         setLogOut,
+        setIsLoggedIn,
       }}
     >
       {children}

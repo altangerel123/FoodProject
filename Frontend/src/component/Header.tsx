@@ -14,7 +14,7 @@ type Anchor = "right";
 export const Header = () => {
   const pathname = usePathname();
   const [drawer, setDrawer] = useState(false);
-  const { isLoggedIn, open, setOpen } = useContext(AuthContext);
+  const { logOut, open, setOpen, isLoggedIn } = useContext(AuthContext);
   const [state, setState] = React.useState({
     right: false,
   });
@@ -177,6 +177,9 @@ export const Header = () => {
                 fontWeight: "700",
                 lineHeight: "18px",
                 textDecoration: "none",
+              }}
+              onClick={() => {
+                setOpen(true);
               }}
             >
               Хэрэглэгч
