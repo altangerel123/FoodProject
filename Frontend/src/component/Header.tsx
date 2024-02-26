@@ -6,15 +6,15 @@ import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { CustomInput } from ".";
-import React, { useContext, useState } from "react";
+import React, { ChangeEvent, useContext, useState } from "react";
 import DrawerFunction from "./DrawerFunction";
 import NewLogin from "./NewLogin";
-import { AuthContext, AuthProvider } from "./AupthProvider";
+import { AuthContext } from "./AupthProvider";
 type Anchor = "right";
 export const Header = () => {
   const pathname = usePathname();
   const [drawer, setDrawer] = useState(false);
-  const { logOut, open, setOpen, isLoggedIn } = useContext(AuthContext);
+  const { open, setOpen, isLoggedIn } = useContext(AuthContext);
   const [state, setState] = React.useState({
     right: false,
   });
@@ -93,6 +93,20 @@ export const Header = () => {
           }}
         >
           ХҮРГЭЛТИЙН БҮС
+        </Link>
+        <Link
+          href={"/FoodMenu"}
+          style={{
+            marginLeft: "24px",
+            fontSize: "14px",
+            fontWeight: "700",
+            lineHeight: "16px",
+            padding: "16px",
+            textDecoration: "none",
+            color: pathname.includes("FoodMenu") ? "#18BA51" : "black",
+          }}
+        >
+          FoodMenu
         </Link>
       </Stack>
       <Stack direction="row" justifyContent="center" alignItems="center">
@@ -178,9 +192,9 @@ export const Header = () => {
                 lineHeight: "18px",
                 textDecoration: "none",
               }}
-              onClick={() => {
-                setOpen(true);
-              }}
+              // onClick={() => {
+              //   setOpen(true);
+              // }}
             >
               Хэрэглэгч
             </Link>

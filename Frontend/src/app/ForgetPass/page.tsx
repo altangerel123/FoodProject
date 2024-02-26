@@ -21,7 +21,6 @@ export default function Home() {
       signup;
     },
   });
-
   return (
     <Stack alignItems="center" my="170px">
       <Stack width="448px" gap="48px" alignItems="center" sx={{ p: "32px" }}>

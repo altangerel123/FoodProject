@@ -1,17 +1,47 @@
 "use client";
-import { Box, Modal, Stack, Typography } from "@mui/material";
+import { Box, Modal, Stack, TextField, Typography } from "@mui/material";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import ManageHistoryIcon from "@mui/icons-material/ManageHistory";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import ForwardToInboxOutlinedIcon from "@mui/icons-material/ForwardToInboxOutlined";
-import { useContext } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { AuthContext } from "@/component/AupthProvider";
 import { Logout } from "@/component/LogOut";
 
 export default function Frofile() {
   const { profile, logOut, setLogOut } = useContext(AuthContext);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState(null);
+
+  // const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   if (!event.target.name) return;
+  // };
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return;
+    setSelectedFile(event.target.files[0]);
+  };
+  const handleImageInput = async () => {
+    if (selectedFile) {
+      try {
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/dluvjoh6c/upload?upload_preset=iiart9je",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        const data = await response.json();
+        console.log(data);
+        setImageUrl(data.secure_url);
+      } catch (error) {
+        console.error("Image upload error:", error);
+      }
+    }
+  };
   // console.log(profile, "HHHHH");
   return (
     <Stack
@@ -22,9 +52,24 @@ export default function Frofile() {
     >
       <Stack width="392px">
         <Stack gap="30px">
-          <Stack direction="row" alignItems="end">
-            <img width="120px" height="120px" src="" />
-            <ModeEditOutlinedIcon sx={{ color: "#18BA51" }} />
+          <Stack>
+            <Stack direction="row" alignItems="end">
+              {imageUrl && (
+                <Stack width="120px" position="relative">
+                  <img src={imageUrl} />
+                </Stack>
+              )}
+              <ModeEditOutlinedIcon
+                onClick={handleImageInput}
+                sx={{ color: "#18BA51" }}
+              />
+              <TextField
+                sx={{ width: "120px", height: "120px" }}
+                type="file"
+                onChange={handleImageChange}
+                variant="outlined"
+              />
+            </Stack>
           </Stack>
           <Typography fontSize="28px" fontWeight="700">
             {profile && profile.name}
