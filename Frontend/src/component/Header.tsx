@@ -6,15 +6,15 @@ import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { CustomInput } from ".";
-import React, { ChangeEvent, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import DrawerFunction from "./DrawerFunction";
 import NewLogin from "./NewLogin";
 import { AuthContext } from "./AupthProvider";
 type Anchor = "right";
 export const Header = () => {
   const pathname = usePathname();
-  const [drawer, setDrawer] = useState(false);
-  const { open, setOpen, isLoggedIn } = useContext(AuthContext);
+  const { open, setOpen, isLoggedIn, drawer, setDrawer } =
+    useContext(AuthContext);
   const [state, setState] = React.useState({
     right: false,
   });
@@ -41,7 +41,6 @@ export const Header = () => {
       <DrawerFunction />
     </Box>
   );
-
   return (
     <Stack
       direction="row"
@@ -57,8 +56,8 @@ export const Header = () => {
           style={{
             color: pathname.includes("Home") ? "#18BA51" : "black",
             marginLeft: "24px",
-            fontSize: "14px",
             fontWeight: "700",
+            fontSize: "17px",
             lineHeight: "16px",
             padding: "16px",
             textDecoration: "none",
@@ -71,8 +70,8 @@ export const Header = () => {
           style={{
             color: pathname.includes("Menu") ? "#18BA51" : "black",
             marginLeft: "24px",
-            fontSize: "14px",
             fontWeight: "700",
+            fontSize: "17px",
             lineHeight: "16px",
             padding: "16px",
             textDecoration: "none",
@@ -84,8 +83,8 @@ export const Header = () => {
           href={"/Location"}
           style={{
             marginLeft: "24px",
-            fontSize: "14px",
             fontWeight: "700",
+            fontSize: "17px",
             lineHeight: "16px",
             padding: "16px",
             textDecoration: "none",
@@ -98,8 +97,8 @@ export const Header = () => {
           href={"/FoodMenu"}
           style={{
             marginLeft: "24px",
-            fontSize: "14px",
             fontWeight: "700",
+            fontSize: "17px",
             lineHeight: "16px",
             padding: "16px",
             textDecoration: "none",
@@ -119,7 +118,7 @@ export const Header = () => {
         >
           <CustomInput type="search" placeholder="Хайх" />
         </Stack>
-        <Button
+        <Stack
           onClick={() => {
             setDrawer(true);
           }}
@@ -137,11 +136,12 @@ export const Header = () => {
               display="flex"
               alignItems="center"
               fontWeight="700"
+              fontSize="18px"
             >
               Сагс
             </Typography>
           </Stack>
-        </Button>
+        </Stack>
         <Drawer
           anchor={"right"}
           open={drawer}
@@ -192,9 +192,6 @@ export const Header = () => {
                 lineHeight: "18px",
                 textDecoration: "none",
               }}
-              // onClick={() => {
-              //   setOpen(true);
-              // }}
             >
               Хэрэглэгч
             </Link>

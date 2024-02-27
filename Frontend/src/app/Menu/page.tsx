@@ -1,5 +1,5 @@
 "use client";
-import Card2 from "@/component/Card2";
+import Card1 from "@/component/Card1";
 import { Stack, Typography } from "@mui/material";
 import { useState } from "react";
 export default function Menu() {
@@ -19,17 +19,19 @@ export default function Menu() {
   ];
   const [titles, setTitles] = useState(titleMap[0]);
   return (
-    <Stack>
-      <Stack direction="row" p="32px" gap="100px" justifyContent="center">
+    <Stack gap="80px" px="240px">
+      <Stack width="100%" direction="row" justifyContent="space-between">
         {titleMap.map((item, index) => {
           return (
             <Stack key={index} direction="row">
               <Typography
-                borderColor="#D6D8DB"
                 fontSize="18px"
                 fontWeight="600"
                 border={1}
                 borderRadius="16px"
+                width="300px"
+                display="flex"
+                justifyContent="center"
                 sx={{ padding: "8px 70px" }}
                 onClick={() => {
                   setTitles(item);
@@ -46,10 +48,9 @@ export default function Menu() {
           );
         })}
       </Stack>
-      <Stack gap="80px" justifyContent="center" alignItems="center">
-        <Card2 />
-        <Card2 />
-        <Card2 />
+      <Stack gap="80px">
+        <Card1 />
+        <Card1 />
       </Stack>
     </Stack>
   );

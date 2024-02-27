@@ -14,7 +14,7 @@ const validationSchema = yup.object({
 });
 export default function NewLogin() {
   const router = useRouter();
-  const { login, setOpen, logOut } = useContext(AuthContext);
+  const { login, setOpen } = useContext(AuthContext);
   const formik = useFormik({
     initialValues: {
       email: "",

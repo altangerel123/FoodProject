@@ -1,13 +1,11 @@
 "use client";
 
-import { Container, Grid, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import ImportContactsOutlinedIcon from "@mui/icons-material/ImportContactsOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import RiceBowlOutlinedIcon from "@mui/icons-material/RiceBowlOutlined";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import StarIcon from "@mui/icons-material/Star";
+
 import Card2 from "@/component/Card2";
-import Card1 from "@/component/Card1";
 
 export default function Homepage() {
   const Cards = [
@@ -81,12 +79,7 @@ export default function Homepage() {
         justifyContent="space-between"
       >
         <Stack maxWidth="384px">
-          <Typography
-            fontSize="55px"
-            fontWeight="600"
-            paddingBottom="23px"
-            borderBottom={1}
-          >
+          <Typography fontSize="55px" fontWeight="600" paddingBottom="23px">
             Pinecone Food deliverys
           </Typography>
           <Typography fontSize="22px" fontWeight="700" paddingTop="23px">
@@ -139,75 +132,8 @@ export default function Homepage() {
             );
           })}
         </Stack>
-        <Stack px="240px" gap="80px" alignItems="center">
-          <Stack gap="24px">
-            <Stack direction="row" justifyContent="space-between">
-              <Stack direction="row" alignItems="center">
-                <StarIcon sx={{ color: "#18BA51" }} />
-                <Typography fontSize="22px" fontWeight="700">
-                   Хямдралтай
-                </Typography>
-              </Stack>
-              <Stack direction="row" alignItems="center">
-                <Typography color="#18BA51">Бүгдийг харах</Typography>
-                <ArrowForwardIosIcon
-                  style={{ fontSize: "14px", color: "#18BA51" }}
-                />
-              </Stack>
-            </Stack>
-            <Card1 />
-          </Stack>
-          <Stack gap="24px">
-            <Stack direction="row" justifyContent="space-between">
-              <Stack direction="row" alignItems="center">
-                <StarIcon sx={{ color: "#18BA51" }} />
-                <Typography fontSize="22px" fontWeight="700">
-                  Үндсэн хоол
-                </Typography>
-              </Stack>
-              <Stack direction="row" alignItems="center">
-                <Typography color="#18BA51">Бүгдийг харах</Typography>
-                <ArrowForwardIosIcon
-                  style={{ fontSize: "14px", color: "#18BA51" }}
-                />
-              </Stack>
-            </Stack>
-            <Card2 />
-          </Stack>
-          <Stack gap="24px">
-            <Stack direction="row" justifyContent="space-between">
-              <Stack direction="row" alignItems="center">
-                <StarIcon sx={{ color: "#18BA51" }} />
-                <Typography fontSize="22px" fontWeight="700">
-                  Салад ба зууш
-                </Typography>
-              </Stack>
-              <Stack direction="row" alignItems="center">
-                <Typography color="#18BA51">Бүгдийг харах</Typography>
-                <ArrowForwardIosIcon
-                  style={{ fontSize: "14px", color: "#18BA51" }}
-                />
-              </Stack>
-            </Stack>
-            <Card2 />
-          </Stack>
-          <Stack gap="24px">
-            <Stack direction="row" justifyContent="space-between">
-              <Stack direction="row" alignItems="center">
-                <StarIcon sx={{ color: "#18BA51" }} />
-                <Typography fontSize="22px" fontWeight="700">
-                  Амттан
-                </Typography>
-              </Stack>
-              <Stack direction="row" alignItems="center">
-                <Typography color="#18BA51">Бүгдийг харах</Typography>
-                <ArrowForwardIosIcon
-                  style={{ fontSize: "14px", color: "#18BA51" }}
-                />
-              </Stack>
-            </Stack>
-            <Card2 />
-          </Stack>
+        <Stack>
+          <Card2 />
         </Stack>
       </Stack>
     </Stack>

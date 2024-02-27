@@ -34,6 +34,16 @@ type AuthContextType = {
   logOut: boolean;
   setLogOut: Dispatch<SetStateAction<boolean>>;
   setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
+  selectedFile: File | null;
+  setSelectedFile: Dispatch<SetStateAction<File | null>>;
+  imageUrl: null;
+  setImageUrl: any;
+  newCategory: boolean;
+  setNewCategory: Dispatch<SetStateAction<boolean>>;
+  newFood: boolean;
+  setNewFood: Dispatch<SetStateAction<boolean>>;
+  drawer: boolean;
+  setDrawer: Dispatch<SetStateAction<boolean>>;
 };
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
@@ -45,6 +55,11 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter();
   const [profile, setProfile] = useState();
   const [logOut, setLogOut] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState(null);
+  const [newCategory, setNewCategory] = useState(false);
+  const [newFood, setNewFood] = useState(false);
+  const [drawer, setDrawer] = useState(false);
 
   const signup = async (type: UsersType) => {
     try {
@@ -132,6 +147,16 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         logOut,
         setLogOut,
         setIsLoggedIn,
+        selectedFile,
+        setSelectedFile,
+        imageUrl,
+        setImageUrl,
+        newCategory,
+        setNewCategory,
+        newFood,
+        setNewFood,
+        drawer,
+        setDrawer,
       }}
     >
       {children}

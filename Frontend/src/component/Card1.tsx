@@ -1,7 +1,11 @@
 "use client";
 
-import { Stack, Typography } from "@mui/material";
+import { Box, Modal, Stack, Typography } from "@mui/material";
+import { useContext } from "react";
+import { AuthContext } from "./AupthProvider";
+import Card3 from "./Card3";
 export default function Card1() {
+  const { open, setOpen } = useContext(AuthContext);
   const CardMap = [
     {
       image: "Foodpng.png",
@@ -33,17 +37,25 @@ export default function Card1() {
     },
   ];
   return (
-    <Stack direction="row" gap="24px">
+    <Stack
+      width="100%"
+      direction="row"
+      gap="24px"
+      justifyContent="space-between"
+    >
       {CardMap.map((index, card) => {
         return (
           <Stack key={card}>
             <Stack position="relative">
               <img
                 style={{
-                  width: "282px",
-                  height: "186px",
+                  width: "350px",
+                  height: "200px",
                   borderRadius: "16px",
                   marginBottom: "14px",
+                }}
+                onClick={() => {
+                  setOpen(true);
                 }}
                 src={index.image}
               />
@@ -51,8 +63,8 @@ export default function Card1() {
                 margin="16px"
                 bgcolor="#18BA51"
                 position="absolute"
-                top="0"
-                left="180px"
+                top="10px"
+                right="10px"
                 zIndex={1}
                 padding="4px 16px"
                 borderRadius="16px"
@@ -82,6 +94,31 @@ export default function Card1() {
           </Stack>
         );
       })}
+      <Modal open={open}>
+        <Box
+          sx={{
+            position: "absolute" as "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography
+            display="flex"
+            justifyContent="end"
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
+            X
+          </Typography>
+          {open && <Card3 />}
+        </Box>
+      </Modal>
     </Stack>
   );
 }

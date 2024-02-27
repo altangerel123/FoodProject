@@ -6,18 +6,20 @@ import ManageHistoryIcon from "@mui/icons-material/ManageHistory";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import ForwardToInboxOutlinedIcon from "@mui/icons-material/ForwardToInboxOutlined";
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, useContext, useEffect } from "react";
 import { AuthContext } from "@/component/AupthProvider";
 import { Logout } from "@/component/LogOut";
 
 export default function Frofile() {
-  const { profile, logOut, setLogOut } = useContext(AuthContext);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState(null);
-
-  // const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   if (!event.target.name) return;
-  // };
+  const {
+    profile,
+    logOut,
+    setLogOut,
+    selectedFile,
+    setSelectedFile,
+    imageUrl,
+    setImageUrl,
+  } = useContext(AuthContext);
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
     setSelectedFile(event.target.files[0]);
@@ -42,7 +44,6 @@ export default function Frofile() {
       }
     }
   };
-  // console.log(profile, "HHHHH");
   return (
     <Stack
       width="100%"
@@ -56,12 +57,20 @@ export default function Frofile() {
             <Stack direction="row" alignItems="end">
               {imageUrl && (
                 <Stack width="120px" position="relative">
-                  <img src={imageUrl} />
+                  <img
+                    src={imageUrl}
+                    onClick={() => {
+                      handleImageChange;
+                    }}
+                    width="120px"
+                    height="120px"
+                    style={{ borderRadius: "100%" }}
+                  ></img>
                 </Stack>
               )}
               <ModeEditOutlinedIcon
                 onClick={handleImageInput}
-                sx={{ color: "#18BA51" }}
+                sx={{ color: "#18BA51", position: "absolute" }}
               />
               <TextField
                 sx={{ width: "120px", height: "120px" }}

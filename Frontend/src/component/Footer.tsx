@@ -36,11 +36,7 @@ export const Footer = () => {
           Food Delivery
         </Typography>
       </Stack>
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        sx={{ px: "120px" }}
-      >
+      <Stack direction="row" justifyContent="space-between">
         <Link
           href={"/Home"}
           style={{
