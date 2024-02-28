@@ -16,6 +16,13 @@ type UsersType = {
   password: String;
   address: String;
 };
+type categoryType = {
+  foodName: String;
+  menu: String;
+  entrance: String;
+  price: String;
+  discount: String;
+};
 type loginType = {
   email: String;
   password: String;
@@ -27,6 +34,7 @@ type AuthContextType = {
   open: boolean;
   signup: (type: UsersType) => void;
   login: (type: loginType) => void;
+  category: (type: categoryType) => void;
   Profile: () => Promise<void>;
   signOut: () => Promise<void>;
   setProfile: any;
@@ -102,6 +110,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       });
     }
   };
+
   const Profile = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -113,6 +122,25 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       setProfile(data[0]);
     } catch (error) {
       toast;
+    }
+  };
+  const category = async (type: categoryType) => {
+    try {
+      const { data } = await backend.post("/category", type);
+      const { token } = data;
+      console.log(data);
+      localStorage.setItem("token", token);
+    } catch (error) {
+      toast("Aldaa garlaa", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
@@ -134,6 +162,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   return (
     <AuthContext.Provider
       value={{
+        category,
         signup,
         login,
         isUser,

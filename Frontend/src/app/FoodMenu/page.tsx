@@ -31,11 +31,11 @@ export default function DoodMenu() {
         <Typography fontSize="22px" fontWeight="700">
           Food Menu
         </Typography>
-        {titleMap.map((item, index) => {
+        {titleMap.map((item, kk) => {
           return (
             <Stack>
               <Stack
-                key={index}
+                key={kk}
                 direction="row"
                 width="100%"
                 height="40px"

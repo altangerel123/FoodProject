@@ -9,12 +9,42 @@ import {
   Typography,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
+import * as yup from "yup";
 import { useContext } from "react";
 import { AuthContext } from "./AupthProvider";
 import { CustomInput } from ".";
+import { useFormik } from "formik";
+const validationSchema = yup.object({
+  foodName: yup.string().required("Хоолны нэр оруулна уу"),
+  menu: yup.string().required("Хоолны ангилал оруулна уу"),
+  entrance: yup.string().required("Хоолны орц оруулна уу"),
+  price: yup.string().required("Хоолны үнэ оруулна уу"),
+  discount: yup.string(),
+});
 
 export default function NewfoodCard() {
-  const { setNewFood } = useContext(AuthContext);
+  const { setNewFood, category } = useContext(AuthContext);
+  const formik = useFormik({
+    initialValues: {
+      foodName: "",
+      menu: "",
+      entrance: "",
+      price: "",
+      discount: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      console.log(values);
+      category({
+        foodName: values.foodName,
+        menu: values.menu,
+        entrance: values.entrance,
+        price: values.price,
+        discount: values.price,
+      });
+    },
+  });
+  console.log(formik.errors);
   return (
     <Stack sx={{ width: "587px", p: "16px 24px 16px 24px" }}>
       <Stack direction="row" alignItems="center" borderBottom={1}>
@@ -37,7 +67,16 @@ export default function NewfoodCard() {
       <Stack>
         <Stack gap="16px">
           <Typography>Хоолны нэр</Typography>
-          <CustomInput placeholder="Хоолны нэр" />
+          <CustomInput
+            placeholder="Хоолны нэр"
+            // label="Хоолны нэр"
+            name="foodName"
+            value={formik.values.foodName}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.foodName && Boolean(formik.errors.foodName)}
+            helperText={formik.touched.foodName && formik.errors.foodName}
+          />
         </Stack>
         <Stack gap="16px">
           <Typography>Хоолны ангилал</Typography>
@@ -47,25 +86,57 @@ export default function NewfoodCard() {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Age"
+              name="menu"
+              value={formik.values.menu}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.menu && Boolean(formik.errors.menu)}
             >
-              <MenuItem value={10}>Breakfast</MenuItem>
-              <MenuItem value={20}>Soup</MenuItem>
-              <MenuItem value={30}>Main course</MenuItem>
-              <MenuItem value={40}>Desserts</MenuItem>
+              <MenuItem value="Breakfast">Breakfast</MenuItem>
+              <MenuItem value="Soup">Soup</MenuItem>
+              <MenuItem value="Main course">Main course</MenuItem>
+              <MenuItem value="Desserts">Desserts</MenuItem>
             </Select>
           </FormControl>
         </Stack>
         <Stack gap="16px">
           <Typography>Хоолны орц</Typography>
-          <CustomInput placeholder="Хоолны орц" />
+          <CustomInput
+            placeholder="Хоолны орц"
+            // label="Хоолны нэр"
+            name="entrance"
+            value={formik.values.entrance}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.entrance && Boolean(formik.errors.entrance)}
+            helperText={formik.touched.entrance && formik.errors.entrance}
+          />
         </Stack>
         <Stack gap="16px">
           <Typography>Хоолны үнэ</Typography>
-          <CustomInput placeholder="Хоолны үнэ" />
+          <CustomInput
+            placeholder="Хоолны үнэ"
+            // label="Хоолны нэр"
+            name="price"
+            value={formik.values.price}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.price && Boolean(formik.errors.price)}
+            helperText={formik.touched.price && formik.errors.price}
+          />
         </Stack>
         <Stack gap="16px">
           <Typography>Хямдралтай эсэх</Typography>
-          <CustomInput placeholder="Хямдралтай эсэх" />
+          <CustomInput
+            placeholder="Хямдралтай эсэх"
+            // label="Хоолны нэр"
+            name="discount"
+            value={formik.values.discount}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.discount && Boolean(formik.errors.discount)}
+            helperText={formik.touched.discount && formik.errors.discount}
+          />
         </Stack>
         <Stack gap="16px">
           <Typography>Хоолны зураг</Typography>
@@ -83,6 +154,9 @@ export default function NewfoodCard() {
               fontWeight: "700",
               color: "black",
               padding: "10px 8px 10px 8px",
+            }}
+            onClick={() => {
+              formik.handleSubmit();
             }}
           >
             Continue

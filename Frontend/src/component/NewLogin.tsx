@@ -1,7 +1,7 @@
 "use client";
 
 import { CustomInput } from "@/component";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import * as yup from "yup";
