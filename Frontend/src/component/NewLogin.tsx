@@ -14,7 +14,7 @@ const validationSchema = yup.object({
 });
 export default function NewLogin() {
   const router = useRouter();
-  const { login, setOpen } = useContext(AuthContext);
+  const { login, setIsLogin } = useContext(AuthContext);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -69,7 +69,7 @@ export default function NewLogin() {
                 textDecoration: "none",
               }}
               onClick={() => {
-                setOpen(false);
+                setIsLogin(true);
               }}
             >
               Нууц үг сэргээх
@@ -86,7 +86,7 @@ export default function NewLogin() {
                 sx={{ p: "16px 8px", width: "384px" }}
                 onClick={() => {
                   formik.handleSubmit();
-                  setOpen(false);
+                  setIsLogin(false);
                 }}
               >
                 Нэвтрэх
@@ -100,7 +100,7 @@ export default function NewLogin() {
                 sx={{ p: "16px 8px" }}
                 onClick={() => {
                   router.push("/Signup");
-                  setOpen(false);
+                  setIsLogin(false);
                 }}
               >
                 Бүртгүүлэх

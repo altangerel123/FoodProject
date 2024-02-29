@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { userModel } from "../models";
+import { categoryModel, userModel } from "../models";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
 export const signup: RequestHandler = async (req, res) => {
@@ -45,7 +45,7 @@ export const Profile: RequestHandler = async (req, res) => {
   const { authorization } = req.headers;
   if (!authorization) {
     return res.status(401).json({
-      message: "Aldaa",
+      message: "Aldaa1",
     });
   }
   try {
@@ -54,6 +54,37 @@ export const Profile: RequestHandler = async (req, res) => {
 
     const profile = await userModel.find({ email: email });
     res.json(profile);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const category: RequestHandler = async (req, res) => {
+  const { foodName, menu, entrance, price, discount } = req.body;
+
+  try {
+    await categoryModel.create({
+      foodName,
+      menu,
+      entrance,
+      price,
+      discount,
+    });
+    res.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const categoryGet: RequestHandler = async (req, res) => {
+  const { authorization } = req.headers;
+  if (!authorization) {
+    return res.status(401).json({
+      message: "Aldaa1",
+    });
+  }
+  try {
+    const foods = await categoryModel.find({});
+    res.json(foods);
   } catch (err) {
     console.log(err);
   }

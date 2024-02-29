@@ -23,7 +23,7 @@ const validationSchema = yup.object({
 });
 
 export default function NewfoodCard() {
-  const { setNewFood, category } = useContext(AuthContext);
+  const { setNewFood, category, setIsCard } = useContext(AuthContext);
   const formik = useFormik({
     initialValues: {
       foodName: "",
@@ -155,8 +155,17 @@ export default function NewfoodCard() {
               color: "black",
               padding: "10px 8px 10px 8px",
             }}
+            disabled={
+              !formik.values.foodName ||
+              !formik.values.menu ||
+              !formik.values.entrance ||
+              !formik.values.price ||
+              !formik.values.discount
+            }
             onClick={() => {
               formik.handleSubmit();
+              setIsCard(true);
+              setNewFood(false);
             }}
           >
             Continue

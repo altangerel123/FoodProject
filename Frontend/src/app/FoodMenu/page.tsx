@@ -6,10 +6,18 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { AuthContext } from "@/component/AupthProvider";
 import Category from "@/component/Category";
 import NewfoodCard from "@/component/NewFoodCard";
+import Card3 from "@/component/Card3";
 
 export default function DoodMenu() {
-  const { newCategory, setNewCategory, newFood, setNewFood } =
-    useContext(AuthContext);
+  const {
+    newCategory,
+    setNewCategory,
+    newFood,
+    setNewFood,
+    setOpen,
+    open,
+    isCard,
+  } = useContext(AuthContext);
   const titleMap = [
     {
       title: "Breakfast",
@@ -103,13 +111,89 @@ export default function DoodMenu() {
             Add new food
           </Button>
         </Stack>
-        <Stack alignItems="center">
-          <AddIcon
-            style={{ width: "47px", height: "47px", color: "#18BA51" }}
-          />
-          <Typography>Уучлаарай, Таны меню хоосон байна.</Typography>
-        </Stack>
+        {!isCard && (
+          <Stack alignItems="center">
+            <AddIcon
+              style={{ width: "47px", height: "47px", color: "#18BA51" }}
+            />
+            <Typography>Уучлаарай, Таны меню хоосон байна.</Typography>
+          </Stack>
+        )}
+        {isCard && (
+          <Stack>
+            <Stack position="relative">
+              <img
+                style={{
+                  width: "350px",
+                  height: "200px",
+                  borderRadius: "16px",
+                  marginBottom: "14px",
+                }}
+                onClick={() => {
+                  setOpen(true);
+                }}
+                src=""
+              />
+              <Typography
+                margin="16px"
+                bgcolor="#18BA51"
+                position="absolute"
+                top="10px"
+                right="10px"
+                zIndex={1}
+                padding="4px 16px"
+                borderRadius="16px"
+                borderColor="white"
+                fontSize="18px"
+                fontWeight="600"
+                color="white"
+              >
+                20%
+              </Typography>
+            </Stack>
+            <Typography fontSize="18px" fontWeight="600">
+              Өглөөний хоол
+            </Typography>
+            <Stack direction="row" gap="16px">
+              <Typography fontSize="18px" fontWeight="600" color="#18BA51">
+                14800₮
+              </Typography>
+              <Typography
+                fontSize="18px"
+                fontWeight="400"
+                style={{ textDecoration: "line-through" }}
+              >
+                16800₮
+              </Typography>
+            </Stack>
+          </Stack>
+        )}
       </Stack>
+      <Modal open={open}>
+        <Box
+          sx={{
+            position: "absolute" as "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography
+            display="flex"
+            justifyContent="end"
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
+            X
+          </Typography>
+          {open && <Card3 />}
+        </Box>
+      </Modal>
       <Modal open={newCategory}>
         <Box
           sx={{

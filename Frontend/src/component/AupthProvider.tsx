@@ -10,6 +10,7 @@ import {
   useState,
 } from "react";
 import { useRouter } from "next/navigation";
+import { Token } from "@mui/icons-material";
 type UsersType = {
   name: String;
   email: String;
@@ -39,6 +40,8 @@ type AuthContextType = {
   signOut: () => Promise<void>;
   setProfile: any;
   profile: any;
+  getCategory: any;
+  setGetCategory: any;
   logOut: boolean;
   setLogOut: Dispatch<SetStateAction<boolean>>;
   setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
@@ -52,6 +55,11 @@ type AuthContextType = {
   setNewFood: Dispatch<SetStateAction<boolean>>;
   drawer: boolean;
   setDrawer: Dispatch<SetStateAction<boolean>>;
+  isLogin: boolean;
+  setIsLogin: Dispatch<SetStateAction<boolean>>;
+  categoryGet: () => Promise<void>;
+  isCard: boolean;
+  setIsCard: Dispatch<SetStateAction<boolean>>;
 };
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
@@ -68,6 +76,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [newCategory, setNewCategory] = useState(false);
   const [newFood, setNewFood] = useState(false);
   const [drawer, setDrawer] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const [getCategory, setGetCategory] = useState();
+  const [isCard, setIsCard] = useState(false);
 
   const signup = async (type: UsersType) => {
     try {
@@ -127,9 +138,18 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const category = async (type: categoryType) => {
     try {
       const { data } = await backend.post("/category", type);
-      const { token } = data;
+
       console.log(data);
-      localStorage.setItem("token", token);
+      toast.success("Success", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (error) {
       toast("Aldaa garlaa", {
         position: "top-right",
@@ -141,6 +161,17 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         progress: undefined,
         theme: "light",
       });
+    }
+  };
+  const categoryGet = async () => {
+    try {
+      const { data } = await backend.get("/categoryGet");
+      const { cate } = data;
+      setGetCategory(cate);
+      setNewFood(true);
+      console.log(data);
+    } catch (error) {
+      toast;
     }
   };
 
@@ -158,7 +189,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     const token = localStorage.getItem("token");
     if (token) setIsLoggedIn(true);
   }, []);
-
   return (
     <AuthContext.Provider
       value={{
@@ -186,6 +216,13 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         setNewFood,
         drawer,
         setDrawer,
+        isLogin,
+        setIsLogin,
+        categoryGet,
+        getCategory,
+        setGetCategory,
+        isCard,
+        setIsCard,
       }}
     >
       {children}

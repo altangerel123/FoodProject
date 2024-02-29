@@ -13,7 +13,7 @@ import { AuthContext } from "./AupthProvider";
 type Anchor = "right";
 export const Header = () => {
   const pathname = usePathname();
-  const { open, setOpen, isLoggedIn, drawer, setDrawer } =
+  const { isLogin, setIsLogin, isLoggedIn, drawer, setDrawer } =
     useContext(AuthContext);
   const [state, setState] = React.useState({
     right: false,
@@ -159,13 +159,13 @@ export const Header = () => {
         >
           <PermIdentityOutlinedIcon
             style={{
-              color: open ? "#18BA51" : "black",
+              color: isLogin ? "#18BA51" : "black",
             }}
           />
           {!isLoggedIn && (
             <Typography
               style={{
-                color: open ? "#18BA51" : "black",
+                color: isLogin ? "#18BA51" : "black",
                 display: "flex",
                 alignItems: "center",
                 fontSize: "18px",
@@ -174,7 +174,7 @@ export const Header = () => {
                 textDecoration: "none",
               }}
               onClick={() => {
-                setOpen(true);
+                setIsLogin(true);
               }}
             >
               Нэвтрэх
@@ -184,7 +184,7 @@ export const Header = () => {
             <Link
               href={"/Frofile"}
               style={{
-                color: open ? "#18BA51" : "black",
+                color: isLogin ? "#18BA51" : "black",
                 display: "flex",
                 alignItems: "center",
                 fontSize: "18px",
@@ -197,9 +197,9 @@ export const Header = () => {
             </Link>
           )}
           <Modal
-            open={open}
+            open={isLogin}
             onClose={() => {
-              setOpen(false);
+              setIsLogin(false);
             }}
           >
             <Box
@@ -214,7 +214,7 @@ export const Header = () => {
                 p: 4,
               }}
             >
-              {open && <NewLogin />}
+              {isLogin && <NewLogin />}
             </Box>
           </Modal>
         </Stack>
