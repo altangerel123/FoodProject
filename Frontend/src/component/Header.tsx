@@ -132,7 +132,7 @@ export const Header = () => {
               }}
             />
             <Typography
-              // sx={{ color: drawer ? "#18BA51" : "black" }}
+              sx={{ color: drawer ? "#18BA51" : "black" }}
               display="flex"
               alignItems="center"
               fontWeight="700"

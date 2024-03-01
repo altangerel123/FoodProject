@@ -62,14 +62,14 @@ export default function NewLogin() {
               helperText={formik.touched.password && formik.errors.password}
             />
             <Link
-              href={"/ForgetPass"}
+              href={"/ForgetEmail"}
               style={{
                 display: "flex",
                 justifyContent: "end",
                 textDecoration: "none",
               }}
               onClick={() => {
-                setIsLogin(true);
+                setIsLogin(false);
               }}
             >
               Нууц үг сэргээх

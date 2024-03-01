@@ -76,12 +76,6 @@ export const category: RequestHandler = async (req, res) => {
   }
 };
 export const categoryGet: RequestHandler = async (req, res) => {
-  const { authorization } = req.headers;
-  if (!authorization) {
-    return res.status(401).json({
-      message: "Aldaa1",
-    });
-  }
   try {
     const foods = await categoryModel.find({});
     res.json(foods);
