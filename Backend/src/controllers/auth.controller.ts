@@ -41,18 +41,9 @@ export const login: RequestHandler = async (req, res) => {
     token,
   });
 };
-export const Profile: RequestHandler = async (req, res) => {
-  const { authorization } = req.headers;
-  if (!authorization) {
-    return res.status(401).json({
-      message: "Aldaa1",
-    });
-  }
+export const userprofile: RequestHandler = async (req, res) => {
   try {
-    const payload = jwt.verify(authorization, "Signup");
-    const { email } = payload as JwtPayload;
-
-    const profile = await userModel.find({ email: email });
+    const profile = await userModel.find({});
     res.json(profile);
   } catch (err) {
     console.log(err);

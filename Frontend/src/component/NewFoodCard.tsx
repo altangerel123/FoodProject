@@ -116,7 +116,8 @@ export default function NewfoodCard() {
           <Typography>Хоолны үнэ</Typography>
           <CustomInput
             placeholder="Хоолны үнэ"
-            // label="Хоолны нэр"
+            label="Хоолны нэр"
+            type="Number"
             name="price"
             value={formik.values.price}
             onChange={formik.handleChange}
@@ -130,6 +131,7 @@ export default function NewfoodCard() {
           <CustomInput
             placeholder="Хямдралтай эсэх"
             // label="Хоолны нэр"
+            type="Number"
             name="discount"
             value={formik.values.discount}
             onChange={formik.handleChange}

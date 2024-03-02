@@ -66,17 +66,18 @@ export default function Frofile() {
                     height="120px"
                     style={{ borderRadius: "100%" }}
                   ></img>
-                  <ModeEditOutlinedIcon
-                    onClick={handleImageInput}
-                    sx={{
-                      color: "#18BA51",
-                      position: "absolute",
-                      right: "0",
-                      bottom: "0",
-                    }}
-                  />
                 </Stack>
               )}
+              <ModeEditOutlinedIcon
+                onClick={handleImageInput}
+                sx={{
+                  color: "#18BA51",
+                  // position: "absolute",
+                  // right: "0",
+                  // bottom: "0",
+                  // zIndex: 1,
+                }}
+              />
               <TextField
                 type="file"
                 onChange={handleImageChange}

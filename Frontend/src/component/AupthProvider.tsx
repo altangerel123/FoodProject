@@ -10,7 +10,6 @@ import {
   useState,
 } from "react";
 import { useRouter } from "next/navigation";
-import { Token } from "@mui/icons-material";
 type UsersType = {
   name: String;
   email: String;
@@ -36,11 +35,17 @@ type AuthContextType = {
   signup: (type: UsersType) => void;
   login: (type: loginType) => void;
   category: (type: categoryType) => void;
-  Profile: () => Promise<void>;
+  userprofile: () => Promise<void>;
   signOut: () => Promise<void>;
   setProfile: any;
   profile: any;
-  getCategory: any;
+  getCategory: {
+    foodName: String;
+    entrance: String;
+    menu: String;
+    prices: String;
+    discount: String;
+  }[];
   setGetCategory: any;
   logOut: boolean;
   setLogOut: Dispatch<SetStateAction<boolean>>;
@@ -77,7 +82,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [newFood, setNewFood] = useState(false);
   const [drawer, setDrawer] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
-  const [getCategory, setGetCategory] = useState();
+  const [getCategory, setGetCategory] = useState([]);
   const [isCard, setIsCard] = useState(false);
 
   const signup = async (type: UsersType) => {
@@ -122,10 +127,10 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
-  const Profile = async () => {
+  const userprofile = async () => {
     try {
       const token = localStorage.getItem("token");
-      const { data } = await backend.get("/profile", {
+      const { data } = await backend.get("/userprofile", {
         headers: {
           Authorization: token,
         },
@@ -138,8 +143,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const category = async (type: categoryType) => {
     try {
       const { data } = await backend.post("/category", type);
-
-      console.log(data);
+      // console.log(data);
       toast.success("Success", {
         position: "top-right",
         autoClose: 5000,
@@ -165,19 +169,19 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
   const categoryGet = async () => {
     try {
-      const { data } = await backend.get("/categoryGet");
-      const { cate } = data;
-      setGetCategory(cate);
+      const { data } = await backend.get("/categoryGet", {
+        headers: { Authorization: localStorage.getItem("token") },
+      });
+      setGetCategory(data);
       setNewFood(true);
-      console.log(data);
     } catch (error) {
       toast;
     }
   };
-
   useEffect(() => {
     setIsLoggedIn(true);
-    Profile();
+    categoryGet();
+    userprofile();
   }, []);
   const signOut = async () => {
     await localStorage.removeItem("token");
@@ -200,7 +204,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         signOut,
         open,
         setOpen,
-        Profile,
+        userprofile,
         setProfile,
         profile,
         logOut,

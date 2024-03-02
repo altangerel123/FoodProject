@@ -62,8 +62,8 @@ export default function Signup() {
             helperText={formik.touched.email && formik.errors.email}
           />
           <CustomInput
-            placeholder="Та хаягаа оруулна уу"
-            label="Хаяг"
+            placeholder="Утасний дугаар оруулна уу"
+            label="Дугаар"
             name="address"
             value={formik.values.address}
             onChange={formik.handleChange}

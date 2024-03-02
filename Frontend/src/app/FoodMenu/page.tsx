@@ -17,6 +17,7 @@ export default function DoodMenu() {
     setOpen,
     open,
     isCard,
+    getCategory,
   } = useContext(AuthContext);
   const titleMap = [
     {
@@ -119,55 +120,58 @@ export default function DoodMenu() {
             <Typography>Уучлаарай, Таны меню хоосон байна.</Typography>
           </Stack>
         )}
-        {isCard && (
-          <Stack>
-            <Stack position="relative">
-              <img
-                style={{
-                  width: "350px",
-                  height: "200px",
-                  borderRadius: "16px",
-                  marginBottom: "14px",
-                }}
-                onClick={() => {
-                  setOpen(true);
-                }}
-                src=""
-              />
-              <Typography
-                margin="16px"
-                bgcolor="#18BA51"
-                position="absolute"
-                top="10px"
-                right="10px"
-                zIndex={1}
-                padding="4px 16px"
-                borderRadius="16px"
-                borderColor="white"
-                fontSize="18px"
-                fontWeight="600"
-                color="white"
-              >
-                20%
-              </Typography>
-            </Stack>
-            <Typography fontSize="18px" fontWeight="600">
-              Өглөөний хоол
-            </Typography>
-            <Stack direction="row" gap="16px">
-              <Typography fontSize="18px" fontWeight="600" color="#18BA51">
-                14800₮
-              </Typography>
-              <Typography
-                fontSize="18px"
-                fontWeight="400"
-                style={{ textDecoration: "line-through" }}
-              >
-                16800₮
-              </Typography>
-            </Stack>
-          </Stack>
-        )}
+        {isCard &&
+          getCategory.map((item) => {
+            return (
+              <Stack>
+                <Stack position="relative">
+                  <img
+                    style={{
+                      width: "350px",
+                      height: "200px",
+                      borderRadius: "16px",
+                      marginBottom: "14px",
+                    }}
+                    onClick={() => {
+                      setOpen(true);
+                    }}
+                    src=""
+                  />
+                  <Typography
+                    margin="16px"
+                    bgcolor="#18BA51"
+                    position="absolute"
+                    top="10px"
+                    right="10px"
+                    zIndex={1}
+                    padding="4px 16px"
+                    borderRadius="16px"
+                    borderColor="white"
+                    fontSize="18px"
+                    fontWeight="600"
+                    color="white"
+                  >
+                    {item?.entrance}%
+                  </Typography>
+                </Stack>
+                <Typography fontSize="18px" fontWeight="600">
+                  {item?.foodName}
+                </Typography>
+                <Stack direction="row" gap="16px">
+                  <Typography fontSize="18px" fontWeight="600" color="#18BA51">
+                    {item?.prices}₮
+                  </Typography>
+                  <Typography
+                    fontSize="18px"
+                    fontWeight="400"
+                    style={{ textDecoration: "line-through" }}
+                  >
+                    {item?.discount}₮{item?.menu}
+                  </Typography>
+                </Stack>
+              </Stack>
+            );
+          })}
       </Stack>
       <Modal open={open}>
         <Box
