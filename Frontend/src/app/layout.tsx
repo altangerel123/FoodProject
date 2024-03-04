@@ -4,8 +4,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
 import { PropsWithChildren } from "react";
-import { Header } from "@/component/Header";
-import { Footer } from "@/component/Footer";
+import { Header } from "@/component/HeaderFooter/Header";
+import { Footer } from "@/component/HeaderFooter/Footer";
 import { CssBaseline, Stack, ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { Theme } from "@/theme";

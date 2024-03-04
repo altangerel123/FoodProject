@@ -16,12 +16,14 @@ type UsersType = {
   password: String;
   address: String;
 };
-type categoryType = {
+type foodType = {
   foodName: String;
-  menu: String;
   entrance: String;
   price: String;
   discount: String;
+};
+type menuType = {
+  menu: String;
 };
 type loginType = {
   email: String;
@@ -34,7 +36,7 @@ type AuthContextType = {
   open: boolean;
   signup: (type: UsersType) => void;
   login: (type: loginType) => void;
-  category: (type: categoryType) => void;
+  foodpost: (type: foodType) => void;
   userprofile: () => Promise<void>;
   signOut: () => Promise<void>;
   setProfile: any;
@@ -46,6 +48,7 @@ type AuthContextType = {
     prices: String;
     discount: String;
   }[];
+
   setGetCategory: any;
   logOut: boolean;
   setLogOut: Dispatch<SetStateAction<boolean>>;
@@ -62,9 +65,13 @@ type AuthContextType = {
   setDrawer: Dispatch<SetStateAction<boolean>>;
   isLogin: boolean;
   setIsLogin: Dispatch<SetStateAction<boolean>>;
-  categoryGet: () => Promise<void>;
+  foodget: () => Promise<void>;
   isCard: boolean;
   setIsCard: Dispatch<SetStateAction<boolean>>;
+  menupost: (type: menuType) => Promise<void>;
+  menuget: () => Promise<void>;
+  ismenu: { menu: String }[];
+  setIsmenu: Dispatch<SetStateAction<never[]>>;
 };
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
@@ -84,6 +91,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLogin, setIsLogin] = useState(false);
   const [getCategory, setGetCategory] = useState([]);
   const [isCard, setIsCard] = useState(false);
+  const [ismenu, setIsmenu] = useState([]);
 
   const signup = async (type: UsersType) => {
     try {
@@ -140,20 +148,10 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       toast;
     }
   };
-  const category = async (type: categoryType) => {
+  const foodpost = async (type: foodType) => {
     try {
-      const { data } = await backend.post("/category", type);
-      // console.log(data);
-      toast.success("Success", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      const { data } = await backend.post("/foodpost", type);
+      console.log(data);
     } catch (error) {
       toast("Aldaa garlaa", {
         position: "top-right",
@@ -167,9 +165,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       });
     }
   };
-  const categoryGet = async () => {
+  const foodget = async () => {
     try {
-      const { data } = await backend.get("/categoryGet", {
+      const { data } = await backend.get("/foodget", {
         headers: { Authorization: localStorage.getItem("token") },
       });
       setGetCategory(data);
@@ -178,11 +176,31 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       toast;
     }
   };
+  const menupost = async (type: menuType) => {
+    try {
+      const { data } = await backend.post("/menupost", type);
+      // console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const menuget = async () => {
+    try {
+      const { data } = await backend.get("/menuget", {
+        headers: { Authorization: localStorage.getItem("token") },
+      });
+      setIsmenu(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     setIsLoggedIn(true);
-    categoryGet();
     userprofile();
   }, []);
+  useEffect(() => {});
+
   const signOut = async () => {
     await localStorage.removeItem("token");
     setIsLoggedIn(false);
@@ -196,7 +214,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   return (
     <AuthContext.Provider
       value={{
-        category,
         signup,
         login,
         isUser,
@@ -222,11 +239,16 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         setDrawer,
         isLogin,
         setIsLogin,
-        categoryGet,
+        foodget,
         getCategory,
         setGetCategory,
         isCard,
         setIsCard,
+        menupost,
+        foodpost,
+        menuget,
+        ismenu,
+        setIsmenu,
       }}
     >
       {children}

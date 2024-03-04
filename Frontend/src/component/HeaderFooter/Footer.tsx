@@ -1,9 +1,9 @@
 "use client";
 import { Stack, Typography } from "@mui/material";
-import { LogoWhite } from "../../public/LogoWhite";
-import { Facebook } from "../../public/Facebook";
-import { Instagram } from "../../public/Instagram";
-import { Twitter } from "../../public/Twitter";
+import { LogoWhite } from "../../../public/LogoWhite";
+import { Facebook } from "../../../public/Facebook";
+import { Instagram } from "../../../public/Instagram";
+import { Twitter } from "../../../public/Twitter";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 

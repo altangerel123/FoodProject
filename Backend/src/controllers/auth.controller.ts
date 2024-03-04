@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
-import { categoryModel, userModel } from "../models";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import { userModel } from "../models";
 
 export const signup: RequestHandler = async (req, res) => {
   const { name, email, password, address } = req.body;
@@ -45,31 +45,6 @@ export const userprofile: RequestHandler = async (req, res) => {
   try {
     const profile = await userModel.find({});
     res.json(profile);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const category: RequestHandler = async (req, res) => {
-  const { foodName, menu, entrance, price, discount } = req.body;
-
-  try {
-    await categoryModel.create({
-      foodName,
-      menu,
-      entrance,
-      price,
-      discount,
-    });
-    res.json();
-  } catch (err) {
-    console.log(err);
-  }
-};
-export const categoryGet: RequestHandler = async (req, res) => {
-  try {
-    const foods = await categoryModel.find({});
-    res.json(foods);
   } catch (err) {
     console.log(err);
   }

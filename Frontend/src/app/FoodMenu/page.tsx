@@ -2,106 +2,23 @@
 import { Box, Button, Modal, Stack, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+
 import { AuthContext } from "@/component/AupthProvider";
-import Category from "@/component/Category";
 import NewfoodCard from "@/component/NewFoodCard";
-import Card3 from "@/component/Card3";
+import CategoryModel from "@/component/Category/CategoryModel";
+import CategoryMap from "@/component/Category/CategoryMap";
+import FoodModel from "@/component/FoodModel";
 
 export default function DoodMenu() {
-  const {
-    newCategory,
-    setNewCategory,
-    newFood,
-    setNewFood,
-    setOpen,
-    open,
-    isCard,
-    getCategory,
-  } = useContext(AuthContext);
-  const titleMap = [
-    {
-      title: "Breakfast",
-    },
-    {
-      title: "Soup",
-    },
-    {
-      title: "Main course",
-    },
-    {
-      title: "Desserts",
-    },
-  ];
-  const [titles, setTitles] = useState(titleMap[0]);
+  const { newCategory, newFood, setNewFood, setOpen, open, isCard } =
+    useContext(AuthContext);
+
   return (
     <Stack px="240px" direction="row" width="100%" gap="30px">
-      <Stack width="258px" gap="16px" minHeight="500px">
-        <Typography fontSize="22px" fontWeight="700">
-          Food Menu
-        </Typography>
-        {titleMap.map((item, kk) => {
-          return (
-            <Stack>
-              <Stack
-                key={kk}
-                direction="row"
-                width="100%"
-                height="40px"
-                borderColor="#D6D8DB"
-                border={1}
-                borderRadius="8px"
-                px="20px"
-                justifyContent="space-between"
-                alignItems="center"
-                onClick={() => {
-                  setTitles(item);
-                }}
-                style={{
-                  backgroundColor:
-                    item.title === titles.title ? "#18BA51" : "white",
-                  color: item.title === titles.title ? "white" : "black",
-                }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "18px",
-                    fontWeight: "500",
-                    textDecoration: "none",
-                    color: item.title === titles.title ? "white" : "black",
-                  }}
-                >
-                  {item.title}
-                </Typography>
-                <MoreVertIcon />
-              </Stack>
-            </Stack>
-          );
-        })}
-        <Stack
-          direction="row"
-          fontSize="18px"
-          fontWeight="500"
-          height="40px"
-          border={1}
-          justifyContent="center"
-          alignItems="center"
-          gap="8px"
-          borderRadius="8px"
-          color="#5E6166"
-          onClick={() => {
-            setNewCategory(true);
-          }}
-        >
-          <AddIcon />
-          <Typography>Create new category</Typography>
-        </Stack>
-      </Stack>
+      <CategoryMap />
       <Stack width="100%" paddingLeft="40px">
         <Stack direction="row" justifyContent="space-between">
-          <Typography fontSize="22px" fontWeight="700">
-            {titles.title}
-          </Typography>
+          <Typography fontSize="22px" fontWeight="700"></Typography>
           <Button
             variant="contained"
             sx={{ fontSize: "16px", fontWeight: "400" }}
@@ -120,58 +37,7 @@ export default function DoodMenu() {
             <Typography>Уучлаарай, Таны меню хоосон байна.</Typography>
           </Stack>
         )}
-        {isCard &&
-          getCategory.map((item) => {
-            return (
-              <Stack>
-                <Stack position="relative">
-                  <img
-                    style={{
-                      width: "350px",
-                      height: "200px",
-                      borderRadius: "16px",
-                      marginBottom: "14px",
-                    }}
-                    onClick={() => {
-                      setOpen(true);
-                    }}
-                    src=""
-                  />
-                  <Typography
-                    margin="16px"
-                    bgcolor="#18BA51"
-                    position="absolute"
-                    top="10px"
-                    right="10px"
-                    zIndex={1}
-                    padding="4px 16px"
-                    borderRadius="16px"
-                    borderColor="white"
-                    fontSize="18px"
-                    fontWeight="600"
-                    color="white"
-                  >
-                    {item?.entrance}%
-                  </Typography>
-                </Stack>
-                <Typography fontSize="18px" fontWeight="600">
-                  {item?.foodName}
-                </Typography>
-                <Stack direction="row" gap="16px">
-                  <Typography fontSize="18px" fontWeight="600" color="#18BA51">
-                    {item?.prices}₮
-                  </Typography>
-                  <Typography
-                    fontSize="18px"
-                    fontWeight="400"
-                    style={{ textDecoration: "line-through" }}
-                  >
-                    {item?.discount}₮{item?.menu}
-                  </Typography>
-                </Stack>
-              </Stack>
-            );
-          })}
+        {isCard && <FoodModel />}
       </Stack>
       <Modal open={open}>
         <Box
@@ -195,7 +61,7 @@ export default function DoodMenu() {
           >
             X
           </Typography>
-          {open && <Card3 />}
+          {open && <FoodModel />}
         </Box>
       </Modal>
       <Modal open={newCategory}>
@@ -210,7 +76,7 @@ export default function DoodMenu() {
             borderRadius: "20px",
           }}
         >
-          {newCategory && <Category />}
+          {newCategory && <CategoryModel />}
         </Box>
       </Modal>
       <Modal open={newFood}>

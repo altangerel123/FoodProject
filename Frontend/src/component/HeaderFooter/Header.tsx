@@ -1,15 +1,15 @@
 "use client";
 import { Box, Button, Drawer, Modal, Stack, Typography } from "@mui/material";
-import { Logo } from "../../public/Logo";
+import { Logo } from "../../../public/Logo";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { CustomInput } from ".";
+import { CustomInput } from "..";
 import React, { useContext, useState } from "react";
-import DrawerFunction from "./DrawerFunction";
-import NewLogin from "./NewLogin";
-import { AuthContext } from "./AupthProvider";
+import DrawerFunction from "../DrawerFunction";
+import NewLogin from "../NewLogin";
+import { AuthContext } from "../AupthProvider";
 type Anchor = "right";
 export const Header = () => {
   const pathname = usePathname();

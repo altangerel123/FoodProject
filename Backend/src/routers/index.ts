@@ -1,7 +1,9 @@
 import authRouter from "./auth.router";
-import categoryRouter from "./category.router";
+import foodRouter from "./food.router";
+import emailRouter from "./email.router";
 
 export default {
   authRouter,
-  categoryRouter,
+  foodRouter,
+  emailRouter,
 };

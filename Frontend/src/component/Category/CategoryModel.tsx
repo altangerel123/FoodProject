@@ -1,10 +1,29 @@
 "use client";
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
+import * as yup from "yup";
 import { useContext } from "react";
-import { AuthContext } from "./AupthProvider";
-export default function Category() {
-  const { setNewCategory } = useContext(AuthContext);
+import { AuthContext } from "../AupthProvider";
+import { useFormik } from "formik";
+import { CustomInput } from "..";
+const validationSchema = yup.object({
+  menu: yup.string().required("Хоолны ангилал оруулна уу"),
+});
+export default function CategoryModel() {
+  const { setNewCategory, menupost } = useContext(AuthContext);
+  const formik = useFormik({
+    initialValues: {
+      menu: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      console.log(values);
+      menupost({
+        menu: values.menu,
+      });
+    },
+  });
+
   return (
     <Stack>
       <Stack sx={{ width: "587px", p: "16px 24px 16px 24px" }}>
@@ -25,8 +44,16 @@ export default function Category() {
           </Typography>
         </Stack>
         <Stack>
-          <Typography>Category name</Typography>
-          <TextField placeholder="Placeholder" type="text" />
+          <CustomInput
+            placeholder="Category name"
+            label="Category name"
+            name="menu"
+            value={formik.values.menu}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.menu && Boolean(formik.errors.menu)}
+            helperText={formik.touched.menu && formik.errors.menu}
+          />
         </Stack>
         <Stack direction="row" gap="16px" justifyContent="end">
           <Button
@@ -40,6 +67,10 @@ export default function Category() {
               fontWeight: "700",
               color: "black",
               padding: "10px 8px 10px 8px",
+            }}
+            disabled={!formik.values.menu}
+            onClick={() => {
+              formik.handleSubmit();
             }}
           >
             Continue

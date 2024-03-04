@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import StarIcon from "@mui/icons-material/Star";
 import Card1 from "./Card1";
-export default function Card2() {
+export default function CardPart() {
   const Card2map = [
     {
       title: "Өглөөний хоол",

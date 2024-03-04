@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-const categoryShema = new Schema({
+const foodShema = new Schema({
   foodName: {
     type: String,
     required: true,
@@ -21,4 +21,4 @@ const categoryShema = new Schema({
     required: true,
   },
 });
-export const categoryModel = model("/category", categoryShema);
+export const foodModel = model("/food", foodShema);

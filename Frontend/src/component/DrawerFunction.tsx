@@ -1,7 +1,7 @@
 "use client";
 import { Button, Card, Stack, Typography } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import Card3 from "./Card3";
+import Card3 from "./FoodModel";
 import { useContext } from "react";
 import { AuthContext } from "./AupthProvider";
 

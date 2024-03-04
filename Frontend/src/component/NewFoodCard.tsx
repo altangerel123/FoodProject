@@ -23,11 +23,10 @@ const validationSchema = yup.object({
 });
 
 export default function NewfoodCard() {
-  const { setNewFood, category, setIsCard } = useContext(AuthContext);
+  const { setNewFood, foodpost, setIsCard } = useContext(AuthContext);
   const formik = useFormik({
     initialValues: {
       foodName: "",
-      menu: "",
       entrance: "",
       price: "",
       discount: "",
@@ -35,9 +34,8 @@ export default function NewfoodCard() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log(values);
-      category({
+      foodpost({
         foodName: values.foodName,
-        menu: values.menu,
         entrance: values.entrance,
         price: values.price,
         discount: values.price,
@@ -69,7 +67,6 @@ export default function NewfoodCard() {
           <Typography>Хоолны нэр</Typography>
           <CustomInput
             placeholder="Хоолны нэр"
-            // label="Хоолны нэр"
             name="foodName"
             value={formik.values.foodName}
             onChange={formik.handleChange}
@@ -82,16 +79,7 @@ export default function NewfoodCard() {
           <Typography>Хоолны ангилал</Typography>
           <FormControl fullWidth sx={{ bgcolor: "#ECEDF0" }}>
             <InputLabel id="demo-simple-select-label">Age</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Age"
-              name="menu"
-              value={formik.values.menu}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.menu && Boolean(formik.errors.menu)}
-            >
+            <Select>
               <MenuItem value="Breakfast">Breakfast</MenuItem>
               <MenuItem value="Soup">Soup</MenuItem>
               <MenuItem value="Main course">Main course</MenuItem>
@@ -103,7 +91,6 @@ export default function NewfoodCard() {
           <Typography>Хоолны орц</Typography>
           <CustomInput
             placeholder="Хоолны орц"
-            // label="Хоолны нэр"
             name="entrance"
             value={formik.values.entrance}
             onChange={formik.handleChange}
@@ -116,7 +103,6 @@ export default function NewfoodCard() {
           <Typography>Хоолны үнэ</Typography>
           <CustomInput
             placeholder="Хоолны үнэ"
-            label="Хоолны нэр"
             type="Number"
             name="price"
             value={formik.values.price}
@@ -130,7 +116,6 @@ export default function NewfoodCard() {
           <Typography>Хямдралтай эсэх</Typography>
           <CustomInput
             placeholder="Хямдралтай эсэх"
-            // label="Хоолны нэр"
             type="Number"
             name="discount"
             value={formik.values.discount}
@@ -159,7 +144,6 @@ export default function NewfoodCard() {
             }}
             disabled={
               !formik.values.foodName ||
-              !formik.values.menu ||
               !formik.values.entrance ||
               !formik.values.price ||
               !formik.values.discount

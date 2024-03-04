@@ -3,7 +3,7 @@
 import { Box, Modal, Stack, Typography } from "@mui/material";
 import { useContext } from "react";
 import { AuthContext } from "./AupthProvider";
-import Card3 from "./Card3";
+import Card3 from "./FoodModel";
 export default function Card1() {
   const { open, setOpen } = useContext(AuthContext);
   const CardMap = [

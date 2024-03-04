@@ -5,7 +5,7 @@ import ImportContactsOutlinedIcon from "@mui/icons-material/ImportContactsOutlin
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import RiceBowlOutlinedIcon from "@mui/icons-material/RiceBowlOutlined";
 
-import Card2 from "@/component/Card2";
+import Card2 from "@/component/CardPart";
 
 export default function Homepage() {
   const Cards = [
