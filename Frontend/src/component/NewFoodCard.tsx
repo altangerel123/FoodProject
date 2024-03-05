@@ -16,7 +16,6 @@ import { CustomInput } from ".";
 import { useFormik } from "formik";
 const validationSchema = yup.object({
   foodName: yup.string().required("Хоолны нэр оруулна уу"),
-  menu: yup.string().required("Хоолны ангилал оруулна уу"),
   entrance: yup.string().required("Хоолны орц оруулна уу"),
   price: yup.string().required("Хоолны үнэ оруулна уу"),
   discount: yup.string(),
@@ -38,11 +37,10 @@ export default function NewfoodCard() {
         foodName: values.foodName,
         entrance: values.entrance,
         price: values.price,
-        discount: values.price,
+        discount: values.discount,
       });
     },
   });
-  console.log(formik.errors);
   return (
     <Stack sx={{ width: "587px", p: "16px 24px 16px 24px" }}>
       <Stack direction="row" alignItems="center" borderBottom={1}>

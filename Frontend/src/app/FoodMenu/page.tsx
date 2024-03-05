@@ -64,21 +64,6 @@ export default function DoodMenu() {
           {open && <FoodModel />}
         </Box>
       </Modal>
-      <Modal open={newCategory}>
-        <Box
-          sx={{
-            position: "absolute" as "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            bgcolor: "background.paper",
-            boxShadow: 24,
-            borderRadius: "20px",
-          }}
-        >
-          {newCategory && <CategoryModel />}
-        </Box>
-      </Modal>
       <Modal open={newFood}>
         <Box
           sx={{

@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import { foodModel } from "../models";
+import { menuModel } from "../models/menu.model";
 
 export const foodpost: RequestHandler = async (req, res) => {
   const { foodName, entrance, price, discount } = req.body;
@@ -27,7 +28,7 @@ export const foodget: RequestHandler = async (req, res) => {
 export const menupost: RequestHandler = async (req, res) => {
   const { menu } = req.body;
   try {
-    await foodModel.create({
+    await menuModel.create({
       menu,
     });
     res.json();
@@ -37,8 +38,8 @@ export const menupost: RequestHandler = async (req, res) => {
 };
 export const menuget: RequestHandler = async (req, res) => {
   try {
-    const menu = await foodModel.find({});
-    res.json(menu);
+    const menus = await menuModel.find({});
+    res.json(menus);
   } catch (err) {
     console.log(err);
   }

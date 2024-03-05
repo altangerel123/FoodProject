@@ -44,7 +44,6 @@ type AuthContextType = {
   getCategory: {
     foodName: String;
     entrance: String;
-    menu: String;
     prices: String;
     discount: String;
   }[];
@@ -92,7 +91,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [getCategory, setGetCategory] = useState([]);
   const [isCard, setIsCard] = useState(false);
   const [ismenu, setIsmenu] = useState([]);
-
   const signup = async (type: UsersType) => {
     try {
       const { data } = await backend.post("/signup", type);
@@ -134,7 +132,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       });
     }
   };
-
   const userprofile = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -151,7 +148,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const foodpost = async (type: foodType) => {
     try {
       const { data } = await backend.post("/foodpost", type);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       toast("Aldaa garlaa", {
         position: "top-right",
@@ -179,7 +176,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const menupost = async (type: menuType) => {
     try {
       const { data } = await backend.post("/menupost", type);
-      // console.log(data);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -194,7 +191,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       console.log(error);
     }
   };
-
   useEffect(() => {
     setIsLoggedIn(true);
     userprofile();
