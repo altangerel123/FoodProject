@@ -8,7 +8,7 @@ import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import ForwardToInboxOutlinedIcon from "@mui/icons-material/ForwardToInboxOutlined";
 import { ChangeEvent, useContext, useEffect } from "react";
 import { AuthContext } from "@/component/AupthProvider";
-import { Logout } from "@/component/LogOut";
+import { Logout } from "@/component/Signup/LogOut";
 
 export default function Frofile() {
   const {

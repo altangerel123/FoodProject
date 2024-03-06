@@ -1,7 +1,7 @@
 "use client";
 import { Stack, Typography } from "@mui/material";
 import { useContext, useEffect } from "react";
-import { AuthContext } from "./AupthProvider";
+import { AuthContext } from "../AupthProvider";
 
 export default function FoodModel() {
   const { getCategory, setOpen } = useContext(AuthContext);

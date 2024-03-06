@@ -11,8 +11,8 @@ import {
 import ClearIcon from "@mui/icons-material/Clear";
 import * as yup from "yup";
 import { useContext } from "react";
-import { AuthContext } from "./AupthProvider";
-import { CustomInput } from ".";
+import { AuthContext } from "../AupthProvider";
+import { CustomInput } from "..";
 import { useFormik } from "formik";
 const validationSchema = yup.object({
   foodName: yup.string().required("Хоолны нэр оруулна уу"),
@@ -148,6 +148,7 @@ export default function NewfoodCard() {
             }
             onClick={() => {
               formik.handleSubmit();
+              console.log(formik.handleSubmit())
               setIsCard(true);
               setNewFood(false);
             }}

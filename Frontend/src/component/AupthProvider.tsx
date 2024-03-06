@@ -10,6 +10,7 @@ import {
   useState,
 } from "react";
 import { useRouter } from "next/navigation";
+import { date } from "yup";
 type UsersType = {
   name: String;
   email: String;
@@ -114,22 +115,15 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const login = async (type: loginType) => {
     try {
       const { data } = await backend.post("/login", type);
-      console.log(data);
       const { token } = data;
       localStorage.setItem("token", token);
       router.push("/Home");
       setIsLoggedIn(true);
+      toast.success("Амжилттай нэвтэрлээ");
     } catch (error) {
-      toast("Aldaa garlaa", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      if(error){
+        // toast(error.response.data.message)
+      }
     }
   };
   const userprofile = async () => {
@@ -148,7 +142,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const foodpost = async (type: foodType) => {
     try {
       const { data } = await backend.post("/foodpost", type);
-      // console.log(data);
+      console.log(data);
     } catch (error) {
       toast("Aldaa garlaa", {
         position: "top-right",
@@ -170,13 +164,13 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       setGetCategory(data);
       setNewFood(true);
     } catch (error) {
-      toast;
+      console.log(error)
     }
   };
   const menupost = async (type: menuType) => {
     try {
       const { data } = await backend.post("/menupost", type);
-      console.log(data);
+      toast.success("Menu шинээр нэмэгдлээ")
     } catch (error) {
       console.log(error);
     }
@@ -186,6 +180,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       const { data } = await backend.get("/menuget", {
         headers: { Authorization: localStorage.getItem("token") },
       });
+      console.log(data)
       setIsmenu(data);
     } catch (error) {
       console.log(error);

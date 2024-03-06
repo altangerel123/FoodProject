@@ -5,7 +5,6 @@ import { AuthContext } from "@/component/AupthProvider";
 import { Button, Stack, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import Link from "next/link";
-import { Router } from "next/router";
 import { useContext, useState } from "react";
 import * as yup from "yup";
 const validationSchema = yup.object({
@@ -55,7 +54,7 @@ export default function Home() {
               style={{ padding: "16px 8px" }}
             >
               <Link
-                href={""}
+                href={"/PorgetPass"}
                 style={{
                   color: "#18BA51",
                   display: "flex",

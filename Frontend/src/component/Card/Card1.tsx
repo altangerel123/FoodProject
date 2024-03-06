@@ -1,8 +1,7 @@
 "use client";
-
 import { Box, Modal, Stack, Typography } from "@mui/material";
 import { useContext } from "react";
-import { AuthContext } from "./AupthProvider";
+import { AuthContext } from "../AupthProvider";
 import Card3 from "./FoodModel";
 export default function Card1() {
   const { open, setOpen } = useContext(AuthContext);
@@ -49,7 +48,7 @@ export default function Card1() {
             <Stack position="relative">
               <img
                 style={{
-                  width: "350px",
+                  maxWidth: "300px",
                   height: "200px",
                   borderRadius: "16px",
                   marginBottom: "14px",

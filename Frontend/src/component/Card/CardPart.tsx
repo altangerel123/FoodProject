@@ -1,6 +1,5 @@
 "use client";
 import { Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import StarIcon from "@mui/icons-material/Star";
 import Card1 from "./Card1";

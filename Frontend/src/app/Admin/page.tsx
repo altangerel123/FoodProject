@@ -4,12 +4,12 @@ import { useContext, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 
 import { AuthContext } from "@/component/AupthProvider";
-import NewfoodCard from "@/component/NewFoodCard";
+import NewfoodCard from "@/component/Card/NewFoodCard";
 import CategoryModel from "@/component/Category/CategoryModel";
 import CategoryMap from "@/component/Category/CategoryMap";
-import FoodModel from "@/component/FoodModel";
+import FoodModel from "@/component/Card/FoodModel";
 
-export default function DoodMenu() {
+export default function FoodMenu() {
   const { newCategory, newFood, setNewFood, setOpen, open, isCard } =
     useContext(AuthContext);
 

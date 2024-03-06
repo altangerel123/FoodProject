@@ -3,15 +3,16 @@ import { Box, Button, Drawer, Modal, Stack, Typography } from "@mui/material";
 import { Logo } from "../../../public/Logo";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { CustomInput } from "..";
 import React, { useContext, useState } from "react";
 import DrawerFunction from "../DrawerFunction";
-import NewLogin from "../NewLogin";
+import NewLogin from "../Signup/NewLogin";
 import { AuthContext } from "../AupthProvider";
 type Anchor = "right";
 export const Header = () => {
+  const router = useRouter();
   const pathname = usePathname();
   const { isLogin, setIsLogin, isLoggedIn, drawer, setDrawer } =
     useContext(AuthContext);
@@ -68,13 +69,14 @@ export const Header = () => {
         <Link
           href={"/Menu"}
           style={{
-            color: pathname.includes("Menu") ? "#18BA51" : "black",
+            // color: pathname.includes("Menu") ? "#18BA51" : "black",
             marginLeft: "24px",
             fontWeight: "700",
             fontSize: "17px",
             lineHeight: "16px",
             padding: "16px",
             textDecoration: "none",
+             color: pathname.includes("Menu") ? "#18BA51" : "black",
           }}
         >
           ХООЛНЫ ЦЭС
@@ -93,8 +95,8 @@ export const Header = () => {
         >
           ХҮРГЭЛТИЙН БҮС
         </Link>
-        <Link
-          href={"/FoodMenu"}
+        {isLoggedIn && <Link
+          href={"/Admin"}
           style={{
             marginLeft: "24px",
             fontWeight: "700",
@@ -102,11 +104,11 @@ export const Header = () => {
             lineHeight: "16px",
             padding: "16px",
             textDecoration: "none",
-            color: pathname.includes("FoodMenu") ? "#18BA51" : "black",
+            color: pathname.includes("Admin") ? "#18BA51" : "black",
           }}
         >
-          FoodMenu
-        </Link>
+          ADMIN
+        </Link>}
       </Stack>
       <Stack direction="row" justifyContent="center" alignItems="center">
         <Stack
@@ -116,7 +118,7 @@ export const Header = () => {
           gap="8px"
           borderRadius="8px"
         >
-          <CustomInput type="search" placeholder="Хайх" />
+          <CustomInput type="search" placeholder="Хайх" onClick={()=> {router.push("/Search") }}/>
         </Stack>
         <Stack
           onClick={() => {
@@ -159,13 +161,13 @@ export const Header = () => {
         >
           <PermIdentityOutlinedIcon
             style={{
-              color: isLogin ? "#18BA51" : "black",
+              color: isLoggedIn ? "#18BA51" : "black",
             }}
           />
           {!isLoggedIn && (
             <Typography
               style={{
-                color: isLogin ? "#18BA51" : "black",
+                color: "black",
                 display: "flex",
                 alignItems: "center",
                 fontSize: "18px",
@@ -184,7 +186,7 @@ export const Header = () => {
             <Link
               href={"/Frofile"}
               style={{
-                color: isLogin ? "#18BA51" : "black",
+                color: isLoggedIn ? "#18BA51" : "black",
                 display: "flex",
                 alignItems: "center",
                 fontSize: "18px",

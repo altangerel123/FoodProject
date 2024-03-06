@@ -1,11 +1,5 @@
 import { Router } from "express";
-import {
-  foodget,
-  foodpost,
-  menuget,
-  menupost,
-} from "../controllers/food.controller";
-
+import { foodget, foodpost, menuget, menupost } from "../controllers";
 const foodRouter = Router();
 foodRouter.post("/foodpost", foodpost);
 foodRouter.get("/foodget", foodget);

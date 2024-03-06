@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import * as yup from "yup";
 import Link from "next/link";
-import { AuthContext } from "./AupthProvider";
+import { AuthContext } from "../AupthProvider";
 import { useFormik } from "formik";
 const validationSchema = yup.object({
   email: yup.string().email("И-мэйл буруу байна").required("Бөглөнө үү"),

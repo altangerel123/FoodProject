@@ -1,6 +1,6 @@
 import { Box, Button, Modal, Stack, Typography } from "@mui/material";
 import { useContext } from "react";
-import { AuthContext } from "./AupthProvider";
+import { AuthContext } from "../AupthProvider";
 import { useRouter } from "next/navigation";
 
 export function Logout() {
