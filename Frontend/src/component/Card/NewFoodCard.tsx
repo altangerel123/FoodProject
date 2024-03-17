@@ -1,9 +1,10 @@
 "use Client";
 import {
+  Box,
   Button,
   FormControl,
-  InputLabel,
   MenuItem,
+  Modal,
   Select,
   Stack,
   Typography,
@@ -14,6 +15,7 @@ import { useContext } from "react";
 import { AuthContext } from "../AupthProvider";
 import { CustomInput } from "..";
 import { useFormik } from "formik";
+import ImageCard from "./ImageCard";
 const validationSchema = yup.object({
   foodName: yup.string().required("Хоолны нэр оруулна уу"),
   entrance: yup.string().required("Хоолны орц оруулна уу"),
@@ -22,7 +24,14 @@ const validationSchema = yup.object({
 });
 
 export default function NewfoodCard() {
-  const { setNewFood, foodpost, setIsCard } = useContext(AuthContext);
+  const {
+    setNewFood,
+    foodpost,
+    setIsCard,
+    imageUrl,
+    imageModel,
+    setImageModel,
+  } = useContext(AuthContext);
   const formik = useFormik({
     initialValues: {
       foodName: "",
@@ -32,7 +41,6 @@ export default function NewfoodCard() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
       foodpost({
         foodName: values.foodName,
         entrance: values.entrance,
@@ -76,7 +84,6 @@ export default function NewfoodCard() {
         <Stack gap="16px">
           <Typography>Хоолны ангилал</Typography>
           <FormControl fullWidth sx={{ bgcolor: "#ECEDF0" }}>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
             <Select>
               <MenuItem value="Breakfast">Breakfast</MenuItem>
               <MenuItem value="Soup">Soup</MenuItem>
@@ -101,7 +108,7 @@ export default function NewfoodCard() {
           <Typography>Хоолны үнэ</Typography>
           <CustomInput
             placeholder="Хоолны үнэ"
-            type="Number"
+            type="text"
             name="price"
             value={formik.values.price}
             onChange={formik.handleChange}
@@ -114,7 +121,7 @@ export default function NewfoodCard() {
           <Typography>Хямдралтай эсэх</Typography>
           <CustomInput
             placeholder="Хямдралтай эсэх"
-            type="Number"
+            type="text"
             name="discount"
             value={formik.values.discount}
             onChange={formik.handleChange}
@@ -125,11 +132,74 @@ export default function NewfoodCard() {
         </Stack>
         <Stack gap="16px">
           <Typography>Хоолны зураг</Typography>
-          <img width="284px" height="122px" src="" alt="" />
+          <Stack
+            width="284px"
+            height="122px"
+            bgcolor="#D6D7DC"
+            justifyContent="center"
+            alignItems="center"
+            border="dashed 1px #393939 "
+            position="relative"
+          >
+            <Stack alignItems="center">
+              <Typography>Add image for the food</Typography>
+              <Button
+                style={{
+                  width: "114px",
+                  fontSize: "16px",
+                  fontWeight: "700",
+                  color: "white",
+                  backgroundColor: "#393939",
+                  padding: "10px 8px 10px 8px",
+                }}
+                onClick={() => {
+                  setImageModel(true);
+                }}
+              >
+                Add image
+              </Button>
+            </Stack>
+            {imageUrl && (
+              <img
+                width="100%"
+                height="100%"
+                style={{ position: "absolute", top: "0", left: "0" }}
+                src={imageUrl}
+              />
+            )}
+            <Modal open={imageModel}>
+              <Box
+                sx={{
+                  position: "absolute" as "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  bgcolor: "background.paper",
+                  border: "2px solid #000",
+                  boxShadow: 24,
+                  p: 4,
+                }}
+              >
+                <Typography
+                  display="flex"
+                  justifyContent="end"
+                  onClick={() => {
+                    setImageModel(false);
+                  }}
+                >
+                  X
+                </Typography>
+                {imageModel && <ImageCard />}
+              </Box>
+            </Modal>
+          </Stack>
         </Stack>
         <Stack direction="row" gap="16px" justifyContent="end">
           <Button
             style={{ fontSize: "16px", fontWeight: "700", color: "black" }}
+            onClick={() => {
+              setNewFood(false);
+            }}
           >
             Clear
           </Button>
@@ -148,7 +218,6 @@ export default function NewfoodCard() {
             }
             onClick={() => {
               formik.handleSubmit();
-              console.log(formik.handleSubmit())
               setIsCard(true);
               setNewFood(false);
             }}

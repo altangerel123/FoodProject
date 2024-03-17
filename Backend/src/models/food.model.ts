@@ -21,4 +21,4 @@ const foodShema = new Schema({
     required: true,
   },
 });
-export const foodModel = model("/food", foodShema);
+export const foodModel = model("/foodShema", foodShema);

@@ -17,9 +17,8 @@ export default function CategoryModel() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      // console.log(value);
       menupost({
-        menu: values.menu,        
+        menu: values.menu,
       });
     },
   });
@@ -72,7 +71,6 @@ export default function CategoryModel() {
           disabled={!formik.values.menu}
           onClick={() => {
             formik.handleSubmit();
-            console.log(formik.handleSubmit())
             setNewCategory(false);
           }}
         >

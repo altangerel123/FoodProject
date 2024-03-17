@@ -28,11 +28,11 @@ export const menupost: RequestHandler = async (req, res) => {
   const { menu } = req.body;
   try {
     await menuModel.create({
-      menu
+      menu,
     });
     res.json();
-  }catch(error){
-    console.log(error)
+  } catch (error) {
+    console.log(error);
   }
 };
 export const menuget: RequestHandler = async (req, res) => {

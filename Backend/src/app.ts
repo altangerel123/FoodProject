@@ -9,6 +9,6 @@ const app = express();
 app.use(cors());
 app.use(json());
 app.use("/", authRouter);
-app.use("/", foodRouter);
+app.use("/foodRouter", foodRouter);
 app.use("/email", emailRouter);
 export default app;

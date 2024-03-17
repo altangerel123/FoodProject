@@ -26,19 +26,16 @@ export default function CategoryMap() {
             px="20px"
             justifyContent="space-between"
             alignItems="center"
-            style={
-              {
-                // backgroundColor: item.menu === item.menu ? "#18BA51" : "white",
-                // color: item.menu === item.menu ? "white" : "black",
-              }
-            }
+            style={{
+              backgroundColor: item.menu === item.menu ? "#18BA51" : "white",
+              color: item.menu === item.menu ? "white" : "black",
+            }}
           >
             <Typography
               style={{
                 fontSize: "18px",
                 fontWeight: "500",
-                // textDecoration: "none",
-                // color: item.menu === item.menu ? "white" : "black",
+                textDecoration: "none",
               }}
             >
               {item.menu}

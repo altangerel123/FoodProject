@@ -28,20 +28,20 @@ export const login: RequestHandler = async (req, res) => {
   const { email, password } = req.body;
   const user = await userModel.findOne({
     email: email,
-  })
-  if(user){
-    if(user.password ==password){
+  });
+  if (user) {
+    if (user.password == password) {
       const token = jwt.sign({ email }, "Signup");
       res.json({
         message: "User signed in",
         token,
       });
-    }else{
+    } else {
       return res.status(409).json({
         message: "Нууц үг таарахгүй байна",
       });
     }
-    }else{
+  } else {
     return res.status(409).json({
       message: "Хэрэглэгч олдсонгүй",
     });

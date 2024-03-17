@@ -10,7 +10,6 @@ import {
   useState,
 } from "react";
 import { useRouter } from "next/navigation";
-import { date } from "yup";
 type UsersType = {
   name: String;
   email: String;
@@ -30,6 +29,7 @@ type loginType = {
   email: String;
   password: String;
 };
+
 type AuthContextType = {
   isUser: boolean;
   isLoggedIn: boolean;
@@ -55,8 +55,6 @@ type AuthContextType = {
   setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
   selectedFile: File | null;
   setSelectedFile: Dispatch<SetStateAction<File | null>>;
-  imageUrl: null;
-  setImageUrl: any;
   newCategory: boolean;
   setNewCategory: Dispatch<SetStateAction<boolean>>;
   newFood: boolean;
@@ -72,6 +70,10 @@ type AuthContextType = {
   menuget: () => Promise<void>;
   ismenu: { menu: String }[];
   setIsmenu: Dispatch<SetStateAction<never[]>>;
+  imageModel: boolean;
+  setImageModel: Dispatch<SetStateAction<boolean>>;
+  imageUrl: any;
+  setImageUrl: Dispatch<SetStateAction<string>>;
 };
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
@@ -84,7 +86,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [profile, setProfile] = useState();
   const [logOut, setLogOut] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState(null);
   const [newCategory, setNewCategory] = useState(false);
   const [newFood, setNewFood] = useState(false);
   const [drawer, setDrawer] = useState(false);
@@ -92,6 +93,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [getCategory, setGetCategory] = useState([]);
   const [isCard, setIsCard] = useState(false);
   const [ismenu, setIsmenu] = useState([]);
+  const [imageModel, setImageModel] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
   const signup = async (type: UsersType) => {
     try {
       const { data } = await backend.post("/signup", type);
@@ -100,16 +103,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       router.push("/Home");
       setIsLoggedIn(true);
     } catch (error) {
-      toast("Aldaa garlaa", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.error("Aldaa garlaa");
     }
   };
   const login = async (type: loginType) => {
@@ -121,8 +115,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       setIsLoggedIn(true);
       toast.success("Амжилттай нэвтэрлээ");
     } catch (error) {
-      if(error){
-        // toast(error.response.data.message)
+      if (error) {
+        toast.error("Aldaa garlaa");
       }
     }
   };
@@ -141,19 +135,11 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
   const foodpost = async (type: foodType) => {
     try {
-      const { data } = await backend.post("/foodpost", type);
+      const { data } = await backend.post("/foodRouter/foodpost", type);
       console.log(data);
+      toast.success("Шинэ хоол нэмэгдлээ");
     } catch (error) {
-      toast("Aldaa garlaa", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.error("Хоол нэмхэд алдаа гарлаа");
     }
   };
   const foodget = async () => {
@@ -164,23 +150,22 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       setGetCategory(data);
       setNewFood(true);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
   const menupost = async (type: menuType) => {
     try {
-      const { data } = await backend.post("/menupost", type);
-      toast.success("Menu шинээр нэмэгдлээ")
+      const { data } = await backend.post("/foodRouter/menupost", type);
+      toast.success("Menu шинээр нэмэгдлээ");
     } catch (error) {
       console.log(error);
     }
   };
   const menuget = async () => {
     try {
-      const { data } = await backend.get("/menuget", {
+      const { data } = await backend.get("/foodRouter/menuget", {
         headers: { Authorization: localStorage.getItem("token") },
       });
-      console.log(data)
       setIsmenu(data);
     } catch (error) {
       console.log(error);
@@ -189,8 +174,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     setIsLoggedIn(true);
     userprofile();
+    menuget();
   }, []);
-  useEffect(() => {});
 
   const signOut = async () => {
     await localStorage.removeItem("token");
@@ -220,8 +205,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         setIsLoggedIn,
         selectedFile,
         setSelectedFile,
-        imageUrl,
-        setImageUrl,
         newCategory,
         setNewCategory,
         newFood,
@@ -240,6 +223,10 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         menuget,
         ismenu,
         setIsmenu,
+        imageModel,
+        setImageModel,
+        imageUrl,
+        setImageUrl,
       }}
     >
       {children}
