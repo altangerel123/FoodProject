@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { userModel } from "../models";
+import { profileModel, userModel } from "../models";
 
 export const signup: RequestHandler = async (req, res) => {
   const { name, email, password, address } = req.body;
@@ -51,6 +51,15 @@ export const userprofile: RequestHandler = async (req, res) => {
   try {
     const profile = await userModel.find({});
     res.json(profile);
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const profileImage: RequestHandler = async (req, res) => {
+  const { profile } = req.body;
+  try {
+    await profileModel.create({ profile });
+    res.json();
   } catch (err) {
     console.log(err);
   }

@@ -2,6 +2,7 @@
 import { backend } from "@/common";
 import { toast } from "react-toastify";
 import {
+  ChangeEvent,
   Dispatch,
   PropsWithChildren,
   SetStateAction,
@@ -10,11 +11,13 @@ import {
   useState,
 } from "react";
 import { useRouter } from "next/navigation";
+import { date } from "yup";
 type UsersType = {
   name: String;
   email: String;
   password: String;
   address: String;
+  frofile: String;
 };
 type foodType = {
   foodName: String;
@@ -29,7 +32,9 @@ type loginType = {
   email: String;
   password: String;
 };
-
+type profileType = {
+  profile: String;
+};
 type AuthContextType = {
   isUser: boolean;
   isLoggedIn: boolean;
@@ -72,8 +77,13 @@ type AuthContextType = {
   setIsmenu: Dispatch<SetStateAction<never[]>>;
   imageModel: boolean;
   setImageModel: Dispatch<SetStateAction<boolean>>;
-  imageUrl: any;
+  imageUrl: String;
   setImageUrl: Dispatch<SetStateAction<string>>;
+  handleImageChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleImageInput: () => Promise<void>;
+  productModel: boolean;
+  setProductModal: Dispatch<SetStateAction<boolean>>;
+  profileImage: any;
 };
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
@@ -95,6 +105,31 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [ismenu, setIsmenu] = useState([]);
   const [imageModel, setImageModel] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
+  const [productModel, setProductModal] = useState(false);
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return;
+    setSelectedFile(event.target.files[0]);
+  };
+  const handleImageInput = async () => {
+    if (selectedFile) {
+      try {
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/dluvjoh6c/upload?upload_preset=iiart9je",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        const data = await response.json();
+        console.log(data);
+        setImageUrl(data.secure_url);
+      } catch (error) {
+        console.error("Image upload error:", error);
+      }
+    }
+  };
   const signup = async (type: UsersType) => {
     try {
       const { data } = await backend.post("/signup", type);
@@ -133,10 +168,18 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       toast;
     }
   };
+  const profileImage = async (type: profileType) => {
+    try {
+      const { data } = await backend.post("/profileImage", type);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const foodpost = async (type: foodType) => {
     try {
       const { data } = await backend.post("/foodRouter/foodpost", type);
-      console.log(data);
+      console.log(data, "hhh");
       toast.success("Шинэ хоол нэмэгдлээ");
     } catch (error) {
       toast.error("Хоол нэмхэд алдаа гарлаа");
@@ -190,6 +233,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   return (
     <AuthContext.Provider
       value={{
+        profileImage,
+        handleImageChange,
+        handleImageInput,
         signup,
         login,
         isUser,
@@ -227,6 +273,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         setImageModel,
         imageUrl,
         setImageUrl,
+        productModel,
+        setProductModal,
       }}
     >
       {children}

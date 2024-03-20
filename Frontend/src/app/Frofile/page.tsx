@@ -6,44 +6,21 @@ import ManageHistoryIcon from "@mui/icons-material/ManageHistory";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import ForwardToInboxOutlinedIcon from "@mui/icons-material/ForwardToInboxOutlined";
-import { ChangeEvent, useContext, useEffect } from "react";
 import { AuthContext } from "@/component/AupthProvider";
 import { Logout } from "@/component/Signup/LogOut";
+import ImageModel from "@/component/Signup/ImageModel";
+import { useContext } from "react";
 
 export default function Frofile() {
   const {
     profile,
     logOut,
     setLogOut,
-    selectedFile,
-    setSelectedFile,
     imageUrl,
-    setImageUrl,
+    productModel,
+    setProductModal,
+    profileImage,
   } = useContext(AuthContext);
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) return;
-    setSelectedFile(event.target.files[0]);
-  };
-  const handleImageInput = async () => {
-    if (selectedFile) {
-      try {
-        const formData = new FormData();
-        formData.append("file", selectedFile);
-        const response = await fetch(
-          "https://api.cloudinary.com/v1_1/dluvjoh6c/upload?upload_preset=iiart9je",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-        const data = await response.json();
-        console.log(data);
-        setImageUrl(data.secure_url);
-      } catch (error) {
-        console.error("Image upload error:", error);
-      }
-    }
-  };
   return (
     <Stack
       width="100%"
@@ -51,39 +28,63 @@ export default function Frofile() {
       justifyContent="center"
       sx={{ my: "100px" }}
     >
+      <Modal open={productModel}>
+        <Box
+          sx={{
+            position: "absolute" as "absolute",
+            width: "384px",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            borderRadius: "20px",
+            p: "20px",
+          }}
+        >
+          <Typography
+            display="flex"
+            justifyContent="end"
+            onClick={() => {
+              setProductModal(false);
+            }}
+          >
+            X
+          </Typography>
+          {productModel && <ImageModel />}
+        </Box>
+      </Modal>
       <Stack width="392px">
         <Stack gap="30px">
-          <Stack>
-            <Stack direction="row" alignItems="end">
+          <Stack direction="row" alignItems="end">
+            <Stack
+              borderRadius="100%"
+              direction="row"
+              justifyContent="end"
+              alignItems="end"
+              width="120px"
+              height="120px"
+              border={1}
+              position="relative"
+              onClick={() => {
+                setProductModal(true);
+              }}
+            >
               {imageUrl && (
-                <Stack width="120px" position="relative">
-                  <img
-                    src={imageUrl}
-                    onClick={() => {
-                      handleImageChange;
-                    }}
-                    width="120px"
-                    height="120px"
-                    style={{ borderRadius: "100%" }}
-                  ></img>
-                </Stack>
+                <img
+                  style={{
+                    borderRadius: "100%",
+                    width: "100%",
+                    height: "100%",
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                  }}
+                  src={profileImage && profileImage.profile}
+                ></img>
               )}
-              <ModeEditOutlinedIcon
-                onClick={handleImageInput}
-                sx={{
-                  color: "#18BA51",
-                  // position: "absolute",
-                  // right: "0",
-                  // bottom: "0",
-                  // zIndex: 1,
-                }}
-              />
-              <TextField
-                type="file"
-                onChange={handleImageChange}
-                variant="outlined"
-              />
             </Stack>
+            <ModeEditOutlinedIcon sx={{ color: "#18BA51" }} />
           </Stack>
           <Typography fontSize="28px" fontWeight="700">
             {profile && profile.name}
