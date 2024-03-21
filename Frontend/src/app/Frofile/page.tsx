@@ -19,7 +19,6 @@ export default function Frofile() {
     imageUrl,
     productModel,
     setProductModal,
-    profileImage,
   } = useContext(AuthContext);
   return (
     <Stack
@@ -80,7 +79,7 @@ export default function Frofile() {
                     top: 0,
                     left: 0,
                   }}
-                  src={profileImage && profileImage.profile}
+                  src={imageUrl}
                 ></img>
               )}
             </Stack>

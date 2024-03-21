@@ -12,28 +12,29 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 import { date } from "yup";
+import { Axios, AxiosError } from "axios";
 type UsersType = {
-  name: String;
-  email: String;
-  password: String;
-  address: String;
-  frofile: String;
+  name: string;
+  email: string;
+  password: string;
+  address: string;
+  frofile: string;
 };
 type foodType = {
-  foodName: String;
-  entrance: String;
-  price: String;
-  discount: String;
+  foodName: string;
+  entrance: string;
+  price: string;
+  discount: string;
 };
 type menuType = {
-  menu: String;
+  menu: string;
 };
 type loginType = {
-  email: String;
-  password: String;
+  email: string;
+  password: string;
 };
 type profileType = {
-  profile: String;
+  profile: string;
 };
 type AuthContextType = {
   isUser: boolean;
@@ -48,10 +49,10 @@ type AuthContextType = {
   setProfile: any;
   profile: any;
   getCategory: {
-    foodName: String;
-    entrance: String;
-    prices: String;
-    discount: String;
+    foodName: string;
+    entrance: string;
+    prices: string;
+    discount: string;
   }[];
 
   setGetCategory: any;
@@ -73,11 +74,11 @@ type AuthContextType = {
   setIsCard: Dispatch<SetStateAction<boolean>>;
   menupost: (type: menuType) => Promise<void>;
   menuget: () => Promise<void>;
-  ismenu: { menu: String }[];
+  ismenu: { menu: string }[];
   setIsmenu: Dispatch<SetStateAction<never[]>>;
   imageModel: boolean;
   setImageModel: Dispatch<SetStateAction<boolean>>;
-  imageUrl: String;
+  imageUrl: string;
   setImageUrl: Dispatch<SetStateAction<string>>;
   handleImageChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleImageInput: () => Promise<void>;
@@ -123,8 +124,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
           }
         );
         const data = await response.json();
-        console.log(data);
         setImageUrl(data.secure_url);
+        return data.secure_url;
       } catch (error) {
         console.error("Image upload error:", error);
       }
@@ -168,19 +169,24 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       toast;
     }
   };
-  const profileImage = async (type: profileType) => {
+  const profileImage = async (url: string) => {
     try {
-      const { data } = await backend.post("/profileImage", type);
-      console.log(data);
+      const { data } = await backend.post("/profileImage", {
+        profile: url,
+      });
     } catch (error) {
-      console.log(error);
+      if (error instanceof AxiosError) {
+        console.log(error);
+      }
     }
   };
+  useEffect(() => {
+    handleImageInput();
+  });
   const foodpost = async (type: foodType) => {
     try {
       const { data } = await backend.post("/foodRouter/foodpost", type);
       console.log(data, "hhh");
-      toast.success("Шинэ хоол нэмэгдлээ");
     } catch (error) {
       toast.error("Хоол нэмхэд алдаа гарлаа");
     }
@@ -218,6 +224,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     setIsLoggedIn(true);
     userprofile();
     menuget();
+  }, []);
+  useEffect(() => {
+    handleImageInput();
   }, []);
 
   const signOut = async () => {

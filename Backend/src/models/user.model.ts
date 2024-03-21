@@ -17,5 +17,9 @@ const userShema = new Schema({
     type: String,
     required: true,
   },
+  profile: {
+    type: String,
+    required: false,
+  },
 });
 export const userModel = model("user", userShema);

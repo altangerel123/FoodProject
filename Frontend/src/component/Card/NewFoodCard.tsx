@@ -22,16 +22,9 @@ const validationSchema = yup.object({
   price: yup.string().required("Хоолны үнэ оруулна уу"),
   discount: yup.string(),
 });
-
 export default function NewfoodCard() {
-  const {
-    setNewFood,
-    foodpost,
-    setIsCard,
-    imageUrl,
-    imageModel,
-    setImageModel,
-  } = useContext(AuthContext);
+  const { setNewFood, foodpost, setIsCard, imageModel, setImageModel } =
+    useContext(AuthContext);
   const formik = useFormik({
     initialValues: {
       foodName: "",
@@ -159,14 +152,14 @@ export default function NewfoodCard() {
                 Add image
               </Button>
             </Stack>
-            {imageUrl && (
+            {/* {imageUrl && (
               <img
                 width="100%"
                 height="100%"
                 style={{ position: "absolute", top: "0", left: "0" }}
-                src={imageUrl}
+                src=""
               />
-            )}
+            )} */}
             <Modal open={imageModel}>
               <Box
                 sx={{

@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { AuthContext } from "../AupthProvider";
 
 export default function ImageModel() {
-  const { handleImageChange, handleImageInput, setProductModal } =
+  const { handleImageChange, handleImageInput, setProductModal, profileImage } =
     useContext(AuthContext);
   return (
     <Stack gap="20px">
@@ -12,7 +12,8 @@ export default function ImageModel() {
         className="bg-black"
         variant="contained"
         onClick={async () => {
-          await handleImageInput();
+          const url = await handleImageInput();
+          await profileImage(url);
           setProductModal(false);
         }}
       >
