@@ -19,8 +19,8 @@ import ImageCard from "./ImageCard";
 const validationSchema = yup.object({
   foodName: yup.string().required("Хоолны нэр оруулна уу"),
   entrance: yup.string().required("Хоолны орц оруулна уу"),
-  price: yup.string().required("Хоолны үнэ оруулна уу"),
-  discount: yup.string(),
+  price: yup.number().required("Хоолны үнэ оруулна уу"),
+  discount: yup.number(),
 });
 export default function NewfoodCard() {
   const { setNewFood, foodpost, setIsCard, imageModel, setImageModel } =
@@ -29,8 +29,8 @@ export default function NewfoodCard() {
     initialValues: {
       foodName: "",
       entrance: "",
-      price: "",
-      discount: "",
+      price: 0,
+      discount: 0,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -42,6 +42,7 @@ export default function NewfoodCard() {
       });
     },
   });
+  console.log(formik.errors);
   return (
     <Stack sx={{ width: "587px", p: "16px 24px 16px 24px" }}>
       <Stack direction="row" alignItems="center" borderBottom={1}>
@@ -211,6 +212,7 @@ export default function NewfoodCard() {
             }
             onClick={() => {
               formik.handleSubmit();
+              console.log(formik.errors);
               setIsCard(true);
               setNewFood(false);
             }}

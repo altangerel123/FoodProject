@@ -10,7 +10,7 @@ const validationSchema = yup.object({
   menu: yup.string().required("Хоолны ангилал оруулна уу"),
 });
 export default function CategoryModel() {
-  const { setNewCategory, menupost } = useContext(AuthContext);
+  const { setNewCategory, menupost, refreshMenu } = useContext(AuthContext);
   const formik = useFormik({
     initialValues: {
       menu: "",
@@ -20,6 +20,7 @@ export default function CategoryModel() {
       menupost({
         menu: values.menu,
       });
+      refreshMenu();
     },
   });
   return (

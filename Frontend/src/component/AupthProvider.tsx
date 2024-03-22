@@ -11,7 +11,6 @@ import {
   useState,
 } from "react";
 import { useRouter } from "next/navigation";
-import { date } from "yup";
 import { Axios, AxiosError } from "axios";
 type UsersType = {
   name: string;
@@ -23,8 +22,8 @@ type UsersType = {
 type foodType = {
   foodName: string;
   entrance: string;
-  price: string;
-  discount: string;
+  price: number;
+  discount: number;
 };
 type menuType = {
   menu: string;
@@ -32,9 +31,6 @@ type menuType = {
 type loginType = {
   email: string;
   password: string;
-};
-type profileType = {
-  profile: string;
 };
 type AuthContextType = {
   isUser: boolean;
@@ -85,6 +81,7 @@ type AuthContextType = {
   productModel: boolean;
   setProductModal: Dispatch<SetStateAction<boolean>>;
   profileImage: any;
+  refreshMenu: () => void;
 };
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
@@ -107,6 +104,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [imageModel, setImageModel] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [productModel, setProductModal] = useState(false);
+  const [refresh, setRefresh] = useState(0);
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
     setSelectedFile(event.target.files[0]);
@@ -183,17 +181,19 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     handleImageInput();
   });
+
   const foodpost = async (type: foodType) => {
     try {
-      const { data } = await backend.post("/foodRouter/foodpost", type);
-      console.log(data, "hhh");
+      const { data } = await backend.post("/foodpost", type);
+      console.log(data);
+      toast.success("Шинэ хоол нэмэгдлээ");
     } catch (error) {
       toast.error("Хоол нэмхэд алдаа гарлаа");
     }
   };
   const foodget = async () => {
     try {
-      const { data } = await backend.get("/foodget", {
+      const { data } = await backend.get("/sfoodget", {
         headers: { Authorization: localStorage.getItem("token") },
       });
       setGetCategory(data);
@@ -204,15 +204,15 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
   const menupost = async (type: menuType) => {
     try {
-      const { data } = await backend.post("/foodRouter/menupost", type);
+      const { data } = await backend.post("/menupost", type);
       toast.success("Menu шинээр нэмэгдлээ");
     } catch (error) {
-      console.log(error);
+      toast.error("Menu нэмхэд алдаа гарлаа");
     }
   };
   const menuget = async () => {
     try {
-      const { data } = await backend.get("/foodRouter/menuget", {
+      const { data } = await backend.get("/menuget", {
         headers: { Authorization: localStorage.getItem("token") },
       });
       setIsmenu(data);
@@ -220,11 +220,14 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       console.log(error);
     }
   };
+  function refreshMenu() {
+    setRefresh((prev) => 1 - prev);
+  }
   useEffect(() => {
     setIsLoggedIn(true);
     userprofile();
     menuget();
-  }, []);
+  }, [refresh]);
   useEffect(() => {
     handleImageInput();
   }, []);
@@ -284,6 +287,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         setImageUrl,
         productModel,
         setProductModal,
+        refreshMenu,
       }}
     >
       {children}

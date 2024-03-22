@@ -1,6 +1,6 @@
 "use client";
 import { Box, Modal, Stack, Typography } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { AuthContext } from "../AupthProvider";
@@ -27,8 +27,8 @@ export default function CategoryMap() {
             justifyContent="space-between"
             alignItems="center"
             style={{
-              backgroundColor: item.menu === item.menu ? "#18BA51" : "white",
-              color: item.menu === item.menu ? "white" : "black",
+              backgroundColor: item.menu === item.menu ? "white" : "#18BA51",
+              color: item.menu === item.menu ? "black" : "white",
             }}
           >
             <Typography

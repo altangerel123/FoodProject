@@ -2,7 +2,6 @@
 import { Button, Stack, TextField } from "@mui/material";
 import { ChangeEvent, useContext } from "react";
 import { AuthContext } from "../AupthProvider";
-
 export default function ImageCard() {
   const { imageUrl, setSelectedFile, selectedFile, handleImageInput } =
     useContext(AuthContext);

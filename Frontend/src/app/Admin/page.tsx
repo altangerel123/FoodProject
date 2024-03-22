@@ -8,7 +8,7 @@ import NewfoodCard from "@/component/Card/NewFoodCard";
 import CategoryMap from "@/component/Category/CategoryMap";
 import FoodModel from "@/component/Card/FoodModel";
 export default function FoodMenu() {
-  const { newCategory, newFood, setNewFood, setOpen, open, isCard } =
+  const { newFood, setNewFood, setOpen, open, isCard } =
     useContext(AuthContext);
   return (
     <Stack px="240px" direction="row" width="100%" gap="30px">
