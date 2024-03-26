@@ -82,6 +82,8 @@ type AuthContextType = {
   setProductModal: Dispatch<SetStateAction<boolean>>;
   profileImage: any;
   refreshMenu: () => void;
+  items: string;
+  setItems: Dispatch<(prevState: String) => never>;
 };
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
@@ -94,6 +96,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [profile, setProfile] = useState();
   const [logOut, setLogOut] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFileFoood, SetSelectedFileFoood] = useState<File | null>(null);
   const [newCategory, setNewCategory] = useState(false);
   const [newFood, setNewFood] = useState(false);
   const [drawer, setDrawer] = useState(false);
@@ -103,17 +106,43 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [ismenu, setIsmenu] = useState([]);
   const [imageModel, setImageModel] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
+  const [imageUrlFood, setImageUrlFood] = useState("");
   const [productModel, setProductModal] = useState(false);
   const [refresh, setRefresh] = useState(0);
+  const [items, setItems] = useState(ismenu[0]);
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
     setSelectedFile(event.target.files[0]);
+  };
+  const handleImageChangeFood = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return;
+    SetSelectedFileFoood(event.target.files[0]);
   };
   const handleImageInput = async () => {
     if (selectedFile) {
       try {
         const formData = new FormData();
         formData.append("file", selectedFile);
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/dluvjoh6c/upload?upload_preset=iiart9je",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        const data = await response.json();
+        setImageUrlFood(data.secure_url);
+        return data.secure_url;
+      } catch (error) {
+        console.error("Image upload error:", error);
+      }
+    }
+  };
+  const handleImageInputFood = async () => {
+    if (selectedFileFoood) {
+      try {
+        const formData = new FormData();
+        formData.append("file", selectedFileFoood);
         const response = await fetch(
           "https://api.cloudinary.com/v1_1/dluvjoh6c/upload?upload_preset=iiart9je",
           {
@@ -129,6 +158,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       }
     }
   };
+
   const signup = async (type: UsersType) => {
     try {
       const { data } = await backend.post("/signup", type);
@@ -245,6 +275,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   return (
     <AuthContext.Provider
       value={{
+        items,
+        setItems,
         profileImage,
         handleImageChange,
         handleImageInput,

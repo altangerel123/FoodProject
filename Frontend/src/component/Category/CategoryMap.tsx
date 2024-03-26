@@ -7,7 +7,8 @@ import { AuthContext } from "../AupthProvider";
 import CategoryModel from "./CategoryModel";
 
 export default function CategoryMap() {
-  const { ismenu, setNewCategory, newCategory } = useContext(AuthContext);
+  const { ismenu, setNewCategory, newCategory, items, setItems } =
+    useContext(AuthContext);
   return (
     <Stack width="258px" gap="16px" minHeight="500px">
       <Typography fontSize="22px" fontWeight="700">
@@ -26,10 +27,13 @@ export default function CategoryMap() {
             px="20px"
             justifyContent="space-between"
             alignItems="center"
-            style={{
-              backgroundColor: item.menu === item.menu ? "white" : "#18BA51",
-              color: item.menu === item.menu ? "black" : "white",
-            }}
+            // style={{
+            //   backgroundColor: item.menu === items.menu ? "#18BA51" : "white",
+            //   color: item.menu === items.menu ? "white" : "black",
+            // }}
+            // onClick={() => {
+            //   setItems(item);
+            // }}
           >
             <Typography
               style={{
