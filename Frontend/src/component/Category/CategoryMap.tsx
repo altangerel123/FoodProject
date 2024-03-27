@@ -7,8 +7,7 @@ import { AuthContext } from "../AupthProvider";
 import CategoryModel from "./CategoryModel";
 
 export default function CategoryMap() {
-  const { ismenu, setNewCategory, newCategory, items, setItems } =
-    useContext(AuthContext);
+  const { ismenu, setNewCategory, newCategory } = useContext(AuthContext);
   return (
     <Stack width="258px" gap="16px" minHeight="500px">
       <Typography fontSize="22px" fontWeight="700">

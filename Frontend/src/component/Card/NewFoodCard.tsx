@@ -7,6 +7,7 @@ import {
   Modal,
   Select,
   Stack,
+  Switch,
   Typography,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -23,8 +24,15 @@ const validationSchema = yup.object({
   discount: yup.number(),
 });
 export default function NewfoodCard() {
-  const { setNewFood, foodpost, setIsCard, imageModel, setImageModel } =
-    useContext(AuthContext);
+  const {
+    setNewFood,
+    foodpost,
+    setIsCard,
+    imageModel,
+    setImageModel,
+    refreshMenu,
+  } = useContext(AuthContext);
+  const label = { inputProps: { "aria-label": "Switch demo" } };
   const formik = useFormik({
     initialValues: {
       foodName: "",
@@ -40,6 +48,7 @@ export default function NewfoodCard() {
         price: values.price,
         discount: values.discount,
       });
+      refreshMenu();
     },
   });
   console.log(formik.errors);
@@ -112,7 +121,10 @@ export default function NewfoodCard() {
           />
         </Stack>
         <Stack gap="16px">
-          <Typography>Хямдралтай эсэх</Typography>
+          <Typography>
+            <Switch {...label} defaultChecked />
+            Хямдралтай эсэх
+          </Typography>
           <CustomInput
             placeholder="Хямдралтай эсэх"
             type="text"

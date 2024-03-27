@@ -47,7 +47,7 @@ type AuthContextType = {
   getCategory: {
     foodName: string;
     entrance: string;
-    prices: string;
+    price: string;
     discount: string;
   }[];
 
@@ -114,10 +114,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     if (!event.target.files) return;
     setSelectedFile(event.target.files[0]);
   };
-  const handleImageChangeFood = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) return;
-    SetSelectedFileFoood(event.target.files[0]);
-  };
   const handleImageInput = async () => {
     if (selectedFile) {
       try {
@@ -137,6 +133,11 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         console.error("Image upload error:", error);
       }
     }
+  };
+
+  const handleImageChangeFood = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return;
+    SetSelectedFileFoood(event.target.files[0]);
   };
   const handleImageInputFood = async () => {
     if (selectedFileFoood) {
@@ -216,28 +217,27 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     try {
       const { data } = await backend.post("/foodpost", type);
       console.log(data);
-      toast.success("Шинэ хоол нэмэгдлээ");
     } catch (error) {
-      toast.error("Хоол нэмхэд алдаа гарлаа");
+      console.log(error);
     }
   };
   const foodget = async () => {
     try {
-      const { data } = await backend.get("/sfoodget", {
+      const { data } = await backend.get("/foodget", {
         headers: { Authorization: localStorage.getItem("token") },
       });
       setGetCategory(data);
-      setNewFood(true);
+      setNewFood(false);
+      toast.success("Хоол шинээр нэмэгдлээ");
     } catch (error) {
-      console.log(error);
+      toast.error("Хоол нэмхэд алдаа гарлаа");
     }
   };
   const menupost = async (type: menuType) => {
     try {
       const { data } = await backend.post("/menupost", type);
-      toast.success("Menu шинээр нэмэгдлээ");
     } catch (error) {
-      toast.error("Menu нэмхэд алдаа гарлаа");
+      console.log(error);
     }
   };
   const menuget = async () => {
@@ -246,8 +246,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         headers: { Authorization: localStorage.getItem("token") },
       });
       setIsmenu(data);
+      toast.success("Menu шинээр нэмэгдлээ");
     } catch (error) {
-      console.log(error);
+      toast.error("Menu нэмхэд алдаа гарлаа");
     }
   };
   function refreshMenu() {
@@ -258,6 +259,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     userprofile();
     menuget();
   }, [refresh]);
+
   useEffect(() => {
     handleImageInput();
   }, []);
