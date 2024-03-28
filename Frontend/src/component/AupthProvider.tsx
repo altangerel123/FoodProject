@@ -17,7 +17,7 @@ type UsersType = {
   email: string;
   password: string;
   address: string;
-  frofile: string;
+  // frofile: string;
 };
 type foodType = {
   foodName: string;

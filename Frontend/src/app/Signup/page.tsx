@@ -25,8 +25,8 @@ export default function Signup() {
       address: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      signup({
+    onSubmit: async (values) => {
+      await signup({
         name: values.name,
         email: values.email,
         password: values.password,
