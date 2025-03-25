@@ -31,6 +31,7 @@ export default function NewfoodCard() {
     imageModel,
     setImageModel,
     refreshMenu,
+    imageUrlFood,
   } = useContext(AuthContext);
   const label = { inputProps: { "aria-label": "Switch demo" } };
   const formik = useFormik({
@@ -51,7 +52,7 @@ export default function NewfoodCard() {
       refreshMenu();
     },
   });
-  console.log(formik.errors);
+
   return (
     <Stack sx={{ width: "587px", p: "16px 24px 16px 24px" }}>
       <Stack direction="row" alignItems="center" borderBottom={1}>
@@ -165,14 +166,14 @@ export default function NewfoodCard() {
                 Add image
               </Button>
             </Stack>
-            {/* {imageUrl && (
+            {imageUrlFood && (
               <img
                 width="100%"
                 height="100%"
                 style={{ position: "absolute", top: "0", left: "0" }}
-                src=""
+                src={imageUrlFood}
               />
-            )} */}
+            )}
             <Modal open={imageModel}>
               <Box
                 sx={{

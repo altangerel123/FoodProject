@@ -1,7 +1,6 @@
 "use client";
 import { Button, Card, Stack, Typography } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import Card3 from "./Card/FoodModel";
 import { useContext } from "react";
 import { AuthContext } from "./AupthProvider";
 
@@ -21,7 +20,6 @@ export default function DrawerFunction() {
             Таны сагс
           </Typography>
         </Stack>
-        <Card3 />
       </Stack>
       <Card
         sx={{

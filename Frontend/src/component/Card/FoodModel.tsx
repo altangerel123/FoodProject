@@ -1,10 +1,11 @@
 "use client";
-import { Grid, Stack, Typography } from "@mui/material";
+import { Button, Grid, Stack, Typography } from "@mui/material";
 import { useContext } from "react";
 import { AuthContext } from "../AupthProvider";
 
 export default function FoodModel() {
-  const { getCategory, setOpen } = useContext(AuthContext);
+  const { getCategory, setOpen, imageUrlFood } = useContext(AuthContext);
+
   return (
     <Stack direction="row">
       <Grid container gap="50px">
@@ -37,23 +38,32 @@ export default function FoodModel() {
                   fontWeight="600"
                   color="white"
                 >
-                  {item.price}%
+                  {item.discount}%
                 </Typography>
               </Stack>
-              <Typography fontSize="18px" fontWeight="600">
-                {item.foodName}
-              </Typography>
-              <Stack direction="row" gap="16px">
-                <Typography fontSize="18px" fontWeight="600" color="#18BA51">
-                  {item.entrance}₮
-                </Typography>
-                <Typography
-                  fontSize="18px"
-                  fontWeight="400"
-                  style={{ textDecoration: "line-through" }}
-                >
-                  {item.discount}₮
-                </Typography>
+              <Stack direction="row" justifyContent="space-between">
+                <Stack>
+                  <Typography fontSize="18px" fontWeight="600">
+                    {item.foodName}
+                  </Typography>
+                  <Stack direction="row" gap="16px">
+                    <Typography
+                      fontSize="18px"
+                      fontWeight="600"
+                      color="#18BA51"
+                    >
+                      {item.entrance}
+                    </Typography>
+                    <Typography fontSize="18px" fontWeight="400">
+                      {item.price}₮
+                    </Typography>
+                  </Stack>
+                </Stack>
+                <Button>
+                  <Typography fontSize="20px" fontWeight="600">
+                    Захиалах
+                  </Typography>
+                </Button>
               </Stack>
             </Stack>
           );

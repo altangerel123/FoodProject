@@ -1,11 +1,11 @@
 "use client";
 
-import { CustomInput } from "@/component";
-import { AuthContext } from "@/component/AupthProvider";
+import { CustomInput } from "../../component";
+import { AuthContext } from "../../component/AupthProvider";
 import { Button, Stack, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import Link from "next/link";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import * as yup from "yup";
 const validationSchema = yup.object({
   kod: yup.string().email().required("Email oruulna uu"),

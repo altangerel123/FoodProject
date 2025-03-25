@@ -1,12 +1,12 @@
 "use client";
-import { Box, Button, Drawer, Modal, Stack, Typography } from "@mui/material";
+import { Box, Drawer, Modal, Stack, Typography } from "@mui/material";
 import { Logo } from "../../../public/Logo";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { CustomInput } from "..";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import DrawerFunction from "../DrawerFunction";
 import NewLogin from "../Signup/NewLogin";
 import { AuthContext } from "../AupthProvider";
@@ -69,14 +69,13 @@ export const Header = () => {
         <Link
           href={"/Menu"}
           style={{
-            // color: pathname.includes("Menu") ? "#18BA51" : "black",
             marginLeft: "24px",
             fontWeight: "700",
             fontSize: "17px",
             lineHeight: "16px",
             padding: "16px",
             textDecoration: "none",
-             color: pathname.includes("Menu") ? "#18BA51" : "black",
+            color: pathname.includes("Menu") ? "#18BA51" : "black",
           }}
         >
           ХООЛНЫ ЦЭС
@@ -95,20 +94,22 @@ export const Header = () => {
         >
           ХҮРГЭЛТИЙН БҮС
         </Link>
-        {isLoggedIn && <Link
-          href={"/Admin"}
-          style={{
-            marginLeft: "24px",
-            fontWeight: "700",
-            fontSize: "17px",
-            lineHeight: "16px",
-            padding: "16px",
-            textDecoration: "none",
-            color: pathname.includes("Admin") ? "#18BA51" : "black",
-          }}
-        >
-          ADMIN
-        </Link>}
+        {isLoggedIn && (
+          <Link
+            href={"/Admin"}
+            style={{
+              marginLeft: "24px",
+              fontWeight: "700",
+              fontSize: "17px",
+              lineHeight: "16px",
+              padding: "16px",
+              textDecoration: "none",
+              color: pathname.includes("Admin") ? "#18BA51" : "black",
+            }}
+          >
+            ADMIN
+          </Link>
+        )}
       </Stack>
       <Stack direction="row" justifyContent="center" alignItems="center">
         <Stack
@@ -118,7 +119,13 @@ export const Header = () => {
           gap="8px"
           borderRadius="8px"
         >
-          <CustomInput type="search" placeholder="Хайх" onClick={()=> {router.push("/Search") }}/>
+          <CustomInput
+            type="search"
+            placeholder="Хайх"
+            onClick={() => {
+              router.push("/Search");
+            }}
+          />
         </Stack>
         <Stack
           onClick={() => {

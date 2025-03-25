@@ -11,13 +11,13 @@ import {
   useState,
 } from "react";
 import { useRouter } from "next/navigation";
-import { Axios, AxiosError } from "axios";
+import { AxiosError } from "axios";
 type UsersType = {
   name: string;
   email: string;
   password: string;
   address: string;
-  // frofile: string;
+  frofile: string;
 };
 type foodType = {
   foodName: string;
@@ -75,9 +75,12 @@ type AuthContextType = {
   imageModel: boolean;
   setImageModel: Dispatch<SetStateAction<boolean>>;
   imageUrl: string;
+  imageUrlFood: string;
   setImageUrl: Dispatch<SetStateAction<string>>;
   handleImageChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleImageChangeFood: (event: ChangeEvent<HTMLInputElement>) => void;
   handleImageInput: () => Promise<void>;
+  handleImageInputFood: () => Promise<void>;
   productModel: boolean;
   setProductModal: Dispatch<SetStateAction<boolean>>;
   profileImage: any;
@@ -96,7 +99,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [profile, setProfile] = useState();
   const [logOut, setLogOut] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [selectedFileFoood, SetSelectedFileFoood] = useState<File | null>(null);
+  const [selectedFileFood, SetSelectedFileFood] = useState<File | null>(null);
   const [newCategory, setNewCategory] = useState(false);
   const [newFood, setNewFood] = useState(false);
   const [drawer, setDrawer] = useState(false);
@@ -127,7 +130,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
           }
         );
         const data = await response.json();
-        setImageUrlFood(data.secure_url);
+        setImageUrl(data.secure_url);
         return data.secure_url;
       } catch (error) {
         console.error("Image upload error:", error);
@@ -137,13 +140,13 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const handleImageChangeFood = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
-    SetSelectedFileFoood(event.target.files[0]);
+    SetSelectedFileFood(event.target.files[0]);
   };
   const handleImageInputFood = async () => {
-    if (selectedFileFoood) {
+    if (selectedFileFood) {
       try {
         const formData = new FormData();
-        formData.append("file", selectedFileFoood);
+        formData.append("file", selectedFileFood);
         const response = await fetch(
           "https://api.cloudinary.com/v1_1/dluvjoh6c/upload?upload_preset=iiart9je",
           {
@@ -152,7 +155,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
           }
         );
         const data = await response.json();
-        setImageUrl(data.secure_url);
+        setImageUrlFood(data.secure_url);
         return data.secure_url;
       } catch (error) {
         console.error("Image upload error:", error);
@@ -167,8 +170,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       localStorage.setItem("token", token);
       router.push("/Home");
       setIsLoggedIn(true);
+      toast.success("Амжилттай нэвтэрлээ");
     } catch (error) {
-      toast.error("Aldaa garlaa");
+      toast.error("Алдаа гарлаа");
     }
   };
   const login = async (type: loginType) => {
@@ -258,6 +262,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     setIsLoggedIn(true);
     userprofile();
     menuget();
+    foodget();
   }, [refresh]);
 
   useEffect(() => {
@@ -322,6 +327,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         productModel,
         setProductModal,
         refreshMenu,
+        imageUrlFood,
+        handleImageChangeFood,
+        handleImageInputFood,
       }}
     >
       {children}

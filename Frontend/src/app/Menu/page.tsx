@@ -1,5 +1,6 @@
 "use client";
-import Card1 from "@/component/Card/Card1";
+
+import Card1 from "../../component/Card/Card1";
 import { Stack, Typography } from "@mui/material";
 import { useState } from "react";
 export default function Menu() {

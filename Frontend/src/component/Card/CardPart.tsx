@@ -6,19 +6,19 @@ import Card1 from "./Card1";
 export default function CardPart() {
   const Card2map = [
     {
-      title: "Өглөөний хоол",
+      title: "Soup",
       text: "Бүгдийг харах",
     },
     {
-      title: "Зайрмаг",
+      title: "Breakfast",
       text: "Бүгдийг харах",
     },
     {
-      title: "Өглөөний хоол",
+      title: "Main course",
       text: "Бүгдийг харах",
     },
     {
-      title: "Breakfast ",
+      title: "Desserts ",
       text: "Бүгдийг харах",
     },
   ];

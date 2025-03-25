@@ -1,9 +1,10 @@
 "use client";
+
 import { Stack, Typography } from "@mui/material";
 import ImportContactsOutlinedIcon from "@mui/icons-material/ImportContactsOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import RiceBowlOutlinedIcon from "@mui/icons-material/RiceBowlOutlined";
-import CardPart from "@/component/Card/CardPart";
+import CardPart from "../../component/Card/CardPart";
 export default function Homepage() {
   const Cards = [
     {

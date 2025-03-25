@@ -9,8 +9,8 @@ import Link from "next/link";
 import { AuthContext } from "../AupthProvider";
 import { useFormik } from "formik";
 const validationSchema = yup.object({
-  email: yup.string().email("И-мэйл буруу байна").required("Бөглөнө үү"),
-  password: yup.string().required(),
+  email: yup.string().email("И-мэйл буруу байна").required("И-мэйл оруулна уу"),
+  password: yup.string().required("Password оруулна уу"),
 });
 export default function NewLogin() {
   const router = useRouter();

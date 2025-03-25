@@ -1,14 +1,15 @@
 "use client";
-import { Box, Modal, Stack, TextField, Typography } from "@mui/material";
+
+import { Box, Modal, Stack, Typography } from "@mui/material";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import ManageHistoryIcon from "@mui/icons-material/ManageHistory";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import ForwardToInboxOutlinedIcon from "@mui/icons-material/ForwardToInboxOutlined";
-import { AuthContext } from "@/component/AupthProvider";
-import { Logout } from "@/component/Signup/LogOut";
-import ImageModel from "@/component/Signup/ImageModel";
+import { AuthContext } from "../../component/AupthProvider";
+import { Logout } from "../../component/Signup/LogOut";
+import ImageModel from "../../component/Signup/ImageModel";
 import { useContext } from "react";
 
 export default function Frofile() {
